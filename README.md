@@ -9,6 +9,6 @@ This setting allows you to disable fog rendering.
 
 ## Tweak Options :
 
-## bypassItemFrameEntity
+## bypassItemFrameEntity :
 
 Allows player to click through an item frame, for exemple to access a chest, furnace, etc. Can be negated by sneaking.
