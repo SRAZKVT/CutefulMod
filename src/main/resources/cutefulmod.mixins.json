@@ -1,0 +1,16 @@
+{
+  "required": true,
+  "minVersion": "0.8",
+  "package": "cutefulmod.mixin",
+  "compatibilityLevel": "JAVA_8",
+  "client": [
+    "BackgroundRendererMixin",
+    "ClientPlayerInteractionManagerMixin",
+    "KeyBindingMixin",
+    "GameOptionsMixin",
+    "MinecraftClientMixin"
+  ],
+  "injectors": {
+    "defaultRequire": 1
+  }
+}

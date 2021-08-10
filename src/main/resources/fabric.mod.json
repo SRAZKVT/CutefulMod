@@ -1,0 +1,31 @@
+{
+  "schemaVersion": 1,
+  "id": "cutefulmod",
+  "version": "1.0.0",
+
+  "name": "CutefulMod",
+  "description": "Very cute mod that adds tweaks to the game",
+  "authors": [
+    "SRAZKVT"
+  ],
+  "contact": {
+    "homepage": "https://modrinth.com/cutefulmod",
+    "issues": "https://github.com/SRAZKVT/CutefulMod/issues"
+    },
+
+  "license": "MIT License",
+  "icon": "assets/cutefulmod/icon.png",
+
+  "environment": "*",
+  "entrypoints": {
+    "main": [
+      "cutefulmod.CutefulMod"
+    ]
+  },
+  "mixins": [
+    "cutefulmod.mixins.json"
+  ],
+  "custom":{
+    "modmenu:clientsideOnly": true
+  }
+}
