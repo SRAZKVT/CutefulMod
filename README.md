@@ -3,7 +3,7 @@ A very cute mod
 
 ## Render Options :
 
-### renderNoFOg
+### renderNoFOg :
 
 This setting allows you to disable fog rendering.
 
