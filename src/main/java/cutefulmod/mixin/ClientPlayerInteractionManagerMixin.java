@@ -14,6 +14,7 @@ import net.minecraft.util.Hand;
 import net.minecraft.util.hit.BlockHitResult;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Vec3d;
+import net.minecraft.util.math.Vec3f;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
@@ -34,7 +35,7 @@ public abstract class ClientPlayerInteractionManagerMixin {
 				BlockPos blockToClick = itemFrame.getBlockPos().offset(itemFrame.getHorizontalFacing().getOpposite());
 				Block hit = itemFrame.getEntityWorld().getBlockState(blockToClick).getBlock();
 				if (canBeClicked(hit)) {
-					BlockHitResult hitResult = new BlockHitResult(new Vec3d(blockToClick), itemFrame.getHorizontalFacing().getOpposite(), blockToClick, false); // whatever the ray trace xd
+					BlockHitResult hitResult = new BlockHitResult(new Vec3d(blockToClick.getX(), blockToClick.getY(), blockToClick.getZ()), itemFrame.getHorizontalFacing().getOpposite(), blockToClick, false); // whatever the ray trace xd
 					ActionResult actionResult = interactBlock(client.player, client.world, hand, hitResult);
 					cir.setReturnValue(actionResult);
 				}

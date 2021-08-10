@@ -6,7 +6,7 @@ import java.io.IOException;
 import java.util.Scanner;
 
 import net.minecraft.client.MinecraftClient;
-import net.minecraft.client.options.GameOptions;
+import net.minecraft.client.option.GameOptions;
 
 public class Configs extends GameOptions {
     public static Configs instance;
