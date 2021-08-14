@@ -8,7 +8,9 @@
     "ClientPlayerInteractionManagerMixin",
     "KeyBindingMixin",
     "GameOptionsMixin",
-    "MinecraftClientMixin"
+    "MinecraftClientMixin",
+    "ChatScreenMixin",
+    "WorldRendererMixin"
   ],
   "injectors": {
     "defaultRequire": 1
