@@ -6,11 +6,17 @@
   "client": [
     "BackgroundRendererMixin",
     "ClientPlayerInteractionManagerMixin",
-    "KeyBindingMixin",
     "GameOptionsMixin",
+    "KeyBindingMixin",
     "MinecraftClientMixin"
   ],
   "injectors": {
     "defaultRequire": 1
-  }
+  },
+  "mixins": [
+    "ChatScreenMixin",
+    "ParticleManagerMixin",
+    "SpellParticleMixin",
+    "WorldRendererMixin"
+  ]
 }
