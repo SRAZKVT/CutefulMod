@@ -17,11 +17,12 @@ public class Configs extends GameOptions {
     public Config bypassItemFrameEntity = new Config("bypassItemFrameEntity", false);
     public Config renderNoFog = new Config("renderNoFog", false);
     public Config fillCloneBoundingBox = new Config("fillCloneBoundingBox", false);
+    public Config disableBlockBreakingParticles = new Config("disableBlockBreakingParticles", false);
 
     public Configs() throws IOException {
         super(MinecraftClient.getInstance(), new File(new File(MinecraftClient.getInstance().runDirectory, "config"), "cuteful.txt"));
         instance = this;
-        allConfigs = new Config[]{bypassItemFrameEntity, renderNoFog, fillCloneBoundingBox};
+        allConfigs = new Config[]{bypassItemFrameEntity, renderNoFog, fillCloneBoundingBox, disableBlockBreakingParticles};
         loadFromFile();
     }
 
@@ -41,6 +42,9 @@ public class Configs extends GameOptions {
                         break;
                     case "fillCloneBoundingBox":
                         fillCloneBoundingBox.value = (configWord[1].equals("true"));
+                        break;
+                    case "disableBlockBreakingParticles":
+                        disableBlockBreakingParticles.value = (configWord[1].equals("true"));
                         break;
                 }
                 System.out.println("CutefulMod : Loaded " + configWord[0] + " as " + configWord[1]);

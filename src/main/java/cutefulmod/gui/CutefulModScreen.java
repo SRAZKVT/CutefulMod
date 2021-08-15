@@ -26,7 +26,7 @@ public class CutefulModScreen extends Screen {
         list = new ButtonListWidget(client, width, height, 32, this.height - 32, 25);
 
         int heightOfButton = 40;
-        int widthOfButton = 170;
+        int widthOfButton = 200;
         for (Config config : configs.allConfigs) {
             this.addButton(new ButtonWidget(this.width / 2 - widthOfButton / 2, heightOfButton, widthOfButton, 20, config.name + " : " + config.value, (buttonWidget) -> {
                 config.value = !config.value;

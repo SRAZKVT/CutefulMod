@@ -10,7 +10,8 @@
     "GameOptionsMixin",
     "MinecraftClientMixin",
     "ChatScreenMixin",
-    "WorldRendererMixin"
+    "WorldRendererMixin",
+    "ParticleManagerMixin"
   ],
   "injectors": {
     "defaultRequire": 1
