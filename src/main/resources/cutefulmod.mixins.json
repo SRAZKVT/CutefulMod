@@ -8,15 +8,15 @@
     "ClientPlayerInteractionManagerMixin",
     "GameOptionsMixin",
     "KeyBindingMixin",
-    "MinecraftClientMixin"
+    "MinecraftClientMixin",
+    "ChatScreenMixin",
+    "ParticleManagerMixin",
+    "SpellParticleMixin",
+    "WorldRendererMixin"
   ],
   "injectors": {
     "defaultRequire": 1
   },
   "mixins": [
-    "ChatScreenMixin",
-    "ParticleManagerMixin",
-    "SpellParticleMixin",
-    "WorldRendererMixin"
   ]
 }
