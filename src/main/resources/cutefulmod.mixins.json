@@ -11,7 +11,8 @@
     "MinecraftClientMixin",
     "ChatScreenMixin",
     "WorldRendererMixin",
-    "ParticleManagerMixin"
+    "ParticleManagerMixin",
+    "SpellParticleMixin"
   ],
   "injectors": {
     "defaultRequire": 1
