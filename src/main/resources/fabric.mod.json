@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "id": "cutefulmod",
-  "version": "1.0.0",
+  "version": "${version}",
 
   "name": "CutefulMod",
   "description": "Very cute mod that adds tweaks to the game",
@@ -9,7 +9,7 @@
     "SRAZKVT"
   ],
   "contact": {
-    "homepage": "https://modrinth.com/cutefulmod",
+    "homepage": "https://modrinth.com/mod/cutefulmod",
     "issues": "https://github.com/SRAZKVT/CutefulMod/issues"
     },
 
