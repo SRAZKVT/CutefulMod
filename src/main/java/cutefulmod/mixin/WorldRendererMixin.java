@@ -135,7 +135,7 @@ public abstract class WorldRendererMixin {
         RenderSystem.depthMask(false);
         //RenderSystem.disableLighting();
 
-        bufferBuilder.begin(VertexFormat.DrawMode.LINE_STRIP, VertexFormats.POSITION_COLOR);
+        bufferBuilder.begin(VertexFormat.DrawMode.DEBUG_LINES, VertexFormats.POSITION_COLOR);
         drawBox(bufferBuilder, model, pos1, pos2, outlinered, outlinegreen, outlineblue, 1, true);
         tessellator.draw();
 
