@@ -14,8 +14,8 @@ public class BackgroundRendererMixin {
     @Inject(method = "applyFog", at = @At(value = "HEAD"), cancellable = true)
     private static void renderNoFog(Camera camera, BackgroundRenderer.FogType fogType, float viewDistance, boolean thickFog, CallbackInfo ci) {
         if (Configs.getInstance().renderNoFog.value) {
-            RenderSystem.setShaderFogStart(1028);
-            RenderSystem.setShaderFogEnd(2088);
+            RenderSystem.setShaderFogStart(viewDistance + 5);
+            RenderSystem.setShaderFogEnd(viewDistance + 10);
             ci.cancel();
         }
     }
