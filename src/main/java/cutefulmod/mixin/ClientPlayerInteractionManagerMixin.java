@@ -13,7 +13,6 @@ import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
 import net.minecraft.util.hit.BlockHitResult;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.Vec3d;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
@@ -24,6 +23,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 public abstract class ClientPlayerInteractionManagerMixin {
 
 	@Shadow public abstract ActionResult interactBlock(ClientPlayerEntity player, ClientWorld world, Hand hand, BlockHitResult hitResult);
+	@Shadow public abstract float getReachDistance();
 
 	@Inject(at = @At("HEAD"), method = "interactEntity", cancellable = true)
 	public void bypassItemFrame(PlayerEntity player, Entity entity, Hand hand, CallbackInfoReturnable<ActionResult> cir) {
@@ -34,9 +34,11 @@ public abstract class ClientPlayerInteractionManagerMixin {
 				BlockPos blockToClick = itemFrame.getBlockPos().offset(itemFrame.getHorizontalFacing().getOpposite());
 				Block hit = itemFrame.getEntityWorld().getBlockState(blockToClick).getBlock();
 				if (canBeClicked(hit)) {
-					BlockHitResult hitResult = new BlockHitResult(new Vec3d(blockToClick), itemFrame.getHorizontalFacing().getOpposite(), blockToClick, false); // whatever the ray trace xd
-					ActionResult actionResult = interactBlock(client.player, client.world, hand, hitResult);
-					cir.setReturnValue(actionResult);
+					BlockHitResult hitResult = (BlockHitResult) player.rayTrace(getReachDistance(), 1, false); // whatever the ray trace xd
+					if (hitResult.getBlockPos().equals(blockToClick)) {
+						ActionResult actionResult = interactBlock(client.player, client.world, hand, hitResult);
+						cir.setReturnValue(actionResult);
+					}
 				}
 			}
 		}
