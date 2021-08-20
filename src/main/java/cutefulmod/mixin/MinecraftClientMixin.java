@@ -20,7 +20,7 @@ public abstract class MinecraftClientMixin {
     public
     GameOptions options;
 
-    @Shadow public abstract void openScreen(Screen screen);
+    @Shadow public abstract void setScreen(Screen screen);
 
     @Inject(
             method = "handleInputEvents",
@@ -30,7 +30,7 @@ public abstract class MinecraftClientMixin {
     )
     private void handleCutefulModMenuKeybind(CallbackInfo ci) {
         while (((IGameOptions) options).getCutefulModMenu().wasPressed()) {
-            openScreen(new CutefulModScreen());
+            setScreen(new CutefulModScreen());
         }
     }
 }

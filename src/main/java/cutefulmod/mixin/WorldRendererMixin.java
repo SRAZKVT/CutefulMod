@@ -133,19 +133,19 @@ public abstract class WorldRendererMixin {
         RenderSystem.defaultBlendFunc();
         RenderSystem.disableTexture();
         RenderSystem.depthMask(false);
-        RenderSystem.disableLighting();
+        //RenderSystem.disableLighting();
 
-        bufferBuilder.begin(GL11.GL_LINES, VertexFormats.POSITION_COLOR);
+        bufferBuilder.begin(VertexFormat.DrawMode.LINE_STRIP, VertexFormats.POSITION_COLOR);
         drawBox(bufferBuilder, model, pos1, pos2, outlinered, outlinegreen, outlineblue, 1, true);
         tessellator.draw();
 
-        bufferBuilder.begin(GL11.GL_QUADS, VertexFormats.POSITION_COLOR);
+        bufferBuilder.begin(VertexFormat.DrawMode.QUADS, VertexFormats.POSITION_COLOR);
         drawBox(bufferBuilder, model, pos1, pos2, fillred, fillgreen, fillblue, fillalpha, false);
         tessellator.draw();
 
         matrices.pop();
 
-        RenderSystem.enableLighting();
+        //RenderSystem.enableLighting();
         RenderSystem.depthMask(true);
         RenderSystem.enableTexture();
         RenderSystem.disableBlend();

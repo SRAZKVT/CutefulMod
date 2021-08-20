@@ -15,7 +15,7 @@ public class KeyBindingMixin {
 
     @Shadow
     @Final
-    private static Map<String, Integer> categoryOrderMap;
+    private static Map<String, Integer> CATEGORY_ORDER_MAP;
 
     @Inject(
             method = "<clinit>",
@@ -24,6 +24,6 @@ public class KeyBindingMixin {
             )
     )
     private static void onInitInjectAtReturn(CallbackInfo ci) {
-        categoryOrderMap.put("CutefulMod", categoryOrderMap.size() + 1);
+        CATEGORY_ORDER_MAP.put("CutefulMod", CATEGORY_ORDER_MAP.size() + 1);
     }
 }
