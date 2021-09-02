@@ -1,11 +1,11 @@
 package cutefulmod.gui;
 
-import cutefulmod.config.Config;
 import cutefulmod.config.Configs;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.gui.widget.ButtonListWidget;
 import net.minecraft.client.gui.widget.ButtonWidget;
+import net.minecraft.client.options.BooleanOption;
 import net.minecraft.text.LiteralText;
 
 import java.io.IOException;
@@ -24,27 +24,27 @@ public class CutefulModScreen extends Screen {
     public void init(MinecraftClient client, int width, int height) {
         super.init(client, width, height);
         list = new ButtonListWidget(client, width, height, 32, this.height - 32, 25);
+        list.addAll(configs.allBooleanConfigs);
 
-        int heightOfButton = 40;
-        int widthOfButton = 200;
-        for (Config config : configs.allConfigs) {
-            this.addButton(new ButtonWidget(this.width / 2 - widthOfButton / 2, heightOfButton, widthOfButton, 20, config.name + " : " + config.value, (buttonWidget) -> {
-                config.value = !config.value;
-                this.minecraft.openScreen(new CutefulModScreen());
-            }));
-            heightOfButton += 24;
-        }
+
+
         this.addButton(new ButtonWidget(this.width / 2 - 155 + 160, this.height - 29, 150, 20, "Done", (buttonWidget) -> {
             this.minecraft.openScreen(null);
         }));
         this.addButton(new ButtonWidget(this.width / 2 - 155, this.height - 29, 150, 20, "Reset config", (buttonWidget) -> {
-            for (Config config : configs.allConfigs) {
+            for (BooleanOption config : configs.allBooleanConfigs) {
                 {
-                    config.value = false;
+                    config.set(configs, "false");
                 }
             }
             this.minecraft.openScreen(new CutefulModScreen());
         }));
+    }
+
+    @Override
+    public boolean mouseClicked(double mouseX, double mouseY, int button) {
+        super.mouseClicked(mouseX, mouseY, button);
+        return list.mouseClicked(mouseX, mouseY, button);
     }
 
     @Override

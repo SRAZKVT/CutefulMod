@@ -12,7 +12,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 public class BackgroundRendererMixin {
     @Inject(method = "applyFog", at = @At(value = "HEAD"), cancellable = true)
     private static void renderNoFog(Camera camera, BackgroundRenderer.FogType fogType, float viewDistance, boolean thickFog, CallbackInfo ci) {
-        if (Configs.getInstance().renderNoFog.value) {
+        if (Configs.getRenderNoFog()) {
             ci.cancel();
         }
     }
