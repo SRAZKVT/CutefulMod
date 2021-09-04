@@ -12,7 +12,8 @@
     "ChatScreenMixin",
     "ParticleManagerMixin",
     "SpellParticleMixin",
-    "WorldRendererMixin"
+    "WorldRendererMixin",
+    "OptionMixin"
   ],
   "injectors": {
     "defaultRequire": 1

@@ -1,13 +1,14 @@
 package cutefulmod.gui;
 
-import cutefulmod.config.Config;
 import cutefulmod.config.Configs;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.gui.widget.ButtonListWidget;
 import net.minecraft.client.gui.widget.ButtonWidget;
+import net.minecraft.client.option.BooleanOption;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.text.LiteralText;
+import net.minecraft.text.Text;
 
 import java.io.IOException;
 
@@ -25,27 +26,27 @@ public class CutefulModScreen extends Screen {
     public void init(MinecraftClient client, int width, int height) {
         super.init(client, width, height);
         list = new ButtonListWidget(client, width, height, 32, this.height - 32, 25);
+        list.addAll(configs.allBooleanConfigs);
 
-        int heightOfButton = 40;
-        int widthOfButton = 170;
-        for (Config config : configs.allConfigs) {
-            this.addButton(new ButtonWidget(this.width / 2 - widthOfButton / 2, heightOfButton, widthOfButton, 20, new LiteralText(config.name + " : " + config.value), (buttonWidget) -> {
-                config.value = !config.value;
-                this.client.openScreen(new CutefulModScreen());
-            }));
-            heightOfButton += 24;
-        }
-        this.addButton(new ButtonWidget(this.width / 2 - 155 + 160, this.height - 29, 150, 20, new LiteralText("Done"), (buttonWidget) -> {
-            this.client.openScreen(null);
+
+
+        this.addButton(new ButtonWidget(this.width / 2 - 155 + 160, this.height - 29, 150, 20, Text.of("Done"), (buttonWidget) -> {
+            this.client.openScreen(null); //minecraft.openScreen(null);
         }));
-        this.addButton(new ButtonWidget(this.width / 2 - 155, this.height - 29, 150, 20, new LiteralText("Reset config"), (buttonWidget) -> {
-            for (Config config : configs.allConfigs) {
+        this.addButton(new ButtonWidget(this.width / 2 - 155, this.height - 29, 150, 20, Text.of("Reset Config"), (buttonWidget) -> {
+            for (BooleanOption config : configs.allBooleanConfigs) {
                 {
-                    config.value = false;
+                    config.set(configs, "false");
                 }
             }
             this.client.openScreen(new CutefulModScreen());
         }));
+    }
+
+    @Override
+    public boolean mouseClicked(double mouseX, double mouseY, int button) {
+        super.mouseClicked(mouseX, mouseY, button);
+        return list.mouseClicked(mouseX, mouseY, button);
     }
 
     @Override
@@ -59,11 +60,12 @@ public class CutefulModScreen extends Screen {
     }
 
     public void render(MatrixStack matrices, int mousex, int mousey, float delta) {
-        this.renderBackgroundTexture(0);
-        this.list.render(matrices, mousex, mousey, delta);
+        this.renderBackgroundTexture(0); //.renderDirtBackground(0);
+        this.list.render(matrices,mousex, mousey, delta);
         assert client != null;
-        drawCenteredText(matrices ,client.textRenderer, this.getNarrationMessage(), this.width / 2, 15, 16777215);
-        super.render(matrices ,mousex, mousey, delta);
+        drawCenteredText(matrices,client.textRenderer, this.getNarrationMessage(), this.width / 2, 15, 16777215);
+        //drawCenteredText();
+        super.render(matrices,mousex, mousey, delta);
     }
 
     public boolean isPauseScreen() {return false;}
