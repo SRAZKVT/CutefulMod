@@ -35,7 +35,7 @@ public abstract class WorldRendererMixin {
     )
     private void onRenderInjectBeforeRenderParticles(MatrixStack matrices, float tickDelta, long limitTime, boolean renderBlockOutline, Camera camera, GameRenderer gameRenderer, LightmapTextureManager lightmapTextureManager, Matrix4f matrix4f, CallbackInfo ci) {
         Screen currentScreen = client.currentScreen;
-        if (currentScreen instanceof ChatScreen && !((IChatScreen)currentScreen).getMessage().equals("") && Configs.getInstance().fillCloneBoundingBox.value) {
+        if (currentScreen instanceof ChatScreen && !((IChatScreen)currentScreen).getMessage().equals("") && Configs.getFillCloneBoundingBox()) {
             String[] args = ((IChatScreen)currentScreen).getMessage().split(" ");
             if ((args[0].equals("/fill") || args[0].equals("/clone")) && args.length >= 7) {
                 BlockPos pos1;

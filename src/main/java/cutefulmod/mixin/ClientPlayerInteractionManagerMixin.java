@@ -31,7 +31,7 @@ public abstract class ClientPlayerInteractionManagerMixin {
 	public void bypassItemFrame(PlayerEntity player, Entity entity, Hand hand, CallbackInfoReturnable<ActionResult> cir) {
 		if (entity instanceof ItemFrameEntity) {
 			ItemFrameEntity itemFrame = (ItemFrameEntity) entity;
-			if (!player.isSneaking() && (!itemFrame.getHeldItemStack().isEmpty()) && Configs.getInstance().bypassItemFrameEntity.value) {
+			if (!player.isSneaking() && (!itemFrame.getHeldItemStack().isEmpty()) && Configs.getBypassItemFrameEntity()) {
 				MinecraftClient client = MinecraftClient.getInstance();
 				BlockPos blockToClick = itemFrame.getBlockPos().offset(itemFrame.getHorizontalFacing().getOpposite());
 				Block hit = itemFrame.getEntityWorld().getBlockState(blockToClick).getBlock();

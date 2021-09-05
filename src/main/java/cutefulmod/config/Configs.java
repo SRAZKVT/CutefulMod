@@ -25,7 +25,7 @@ public class Configs extends GameOptions {
     public Configs() throws IOException {
         super(MinecraftClient.getInstance(), new File(new File(MinecraftClient.getInstance().runDirectory, "config"), "cuteful.txt"));
         instance = this;
-        allBooleanConfigs = new CyclingOption<Boolean>[]{
+        allBooleanConfigs = new CyclingOption[]{
                 Config.DISABLE_FOG,
                 Config.BYPASS_ITEM_FRAME_ENTITY,
                 Config.FILL_CLONE_BOUNDING_BOX,
@@ -75,7 +75,7 @@ public class Configs extends GameOptions {
         configFile.delete();
         FileWriter fw = new FileWriter(configFile);
         for (CyclingOption<Boolean> config : allBooleanConfigs) {
-            fw.write(((IOption)config).getKey() + " " + config.get(this) + "\n");
+           //file write is borked
         }
         fw.close();
     }
@@ -86,7 +86,7 @@ public class Configs extends GameOptions {
 
 
 
-    public static void setRenderNoFog(Option value) {
+    public static void setRenderNoFog(boolean value) {
         Configs.getInstance().renderNoFog = value;
         System.out.println("setRenderNoFog Used");
     }

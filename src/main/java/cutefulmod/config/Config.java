@@ -1,41 +1,41 @@
 package cutefulmod.config;
 
 import net.minecraft.client.gui.widget.ButtonWidget; //AbstractButtonWidget;
-import net.minecraft.client.option.BooleanOption;
+import net.minecraft.client.option.CyclingOption; //.BooleanOption;
 import net.minecraft.client.option.GameOptions;
 import net.minecraft.client.option.Option;
 
 public abstract class Config extends Option {
 
-    public static final BooleanOption DISABLE_FOG;
-    public static final BooleanOption BYPASS_ITEM_FRAME_ENTITY;
-    public static final BooleanOption FILL_CLONE_BOUNDING_BOX;
-    public static final BooleanOption DISABLE_BLOCK_BREAKING_PARTICLES;
-    public static final BooleanOption DISABLE_POTION_EFFECT_PARTICLES;
+    public static final CyclingOption<Boolean> DISABLE_FOG;
+    public static final CyclingOption<Boolean> BYPASS_ITEM_FRAME_ENTITY;
+    public static final CyclingOption<Boolean> FILL_CLONE_BOUNDING_BOX;
+    public static final CyclingOption<Boolean>  DISABLE_BLOCK_BREAKING_PARTICLES;
+    public static final CyclingOption<Boolean>  DISABLE_POTION_EFFECT_PARTICLES;
 
     static {
-        DISABLE_FOG = new BooleanOption("renderNoFog",
+        DISABLE_FOG =  CyclingOption.create("renderNoFog",
                 config -> Configs.getRenderNoFog(),
-                (config, renderNoFog) -> Configs.setRenderNoFog(renderNoFog)
+                (gameOptions,config,renderNoFog) -> Configs.setRenderNoFog(renderNoFog)
         );
 
-        BYPASS_ITEM_FRAME_ENTITY = new BooleanOption("bypassItemFrameEntity",
+        BYPASS_ITEM_FRAME_ENTITY = CyclingOption.create("bypassItemFrameEntity",
                 config -> Configs.getBypassItemFrameEntity(),
-                (config, bypassItemFrameEntity) -> Configs.setBypassItemFrameEntity(bypassItemFrameEntity)
+                (gameOptions,config,bypassItemFrameEntity) -> Configs.setBypassItemFrameEntity(bypassItemFrameEntity)
         );
 
-        FILL_CLONE_BOUNDING_BOX = new BooleanOption("fillCloneBoundingBox",
+        FILL_CLONE_BOUNDING_BOX = CyclingOption.create("fillCloneBoundingBox",
                 config -> Configs.getFillCloneBoundingBox(),
-                (config, fillCloneBoundingBox) -> Configs.setFillCloneBoundingBox(fillCloneBoundingBox)
+                (gameOptions,config, fillCloneBoundingBox) -> Configs.setFillCloneBoundingBox(fillCloneBoundingBox)
         );
 
-        DISABLE_BLOCK_BREAKING_PARTICLES = new BooleanOption("disableBlockBreakingParticles",
+        DISABLE_BLOCK_BREAKING_PARTICLES = CyclingOption.create("disableBlockBreakingParticles",
                 config -> Configs.getDisableBlockBreakingParticles(),
-                (config, disableBlockBreakingParticles) -> Configs.setDisableBlockBreakingParticles(disableBlockBreakingParticles)
+                (gameOptions,config, disableBlockBreakingParticles) -> Configs.setDisableBlockBreakingParticles(disableBlockBreakingParticles)
         );
-        DISABLE_POTION_EFFECT_PARTICLES = new BooleanOption("disablePotionEffectParticles",
+        DISABLE_POTION_EFFECT_PARTICLES =  CyclingOption.create("disablePotionEffectParticles",
                 config -> Configs.getDisablePotionEffectParticles(),
-                (config, disablePotionEffectParticles) -> Configs.setDisablePotionEffectParticles(disablePotionEffectParticles)
+                (gameOptions,config, disablePotionEffectParticles) -> Configs.setDisablePotionEffectParticles(disablePotionEffectParticles)
         );
     }
 
