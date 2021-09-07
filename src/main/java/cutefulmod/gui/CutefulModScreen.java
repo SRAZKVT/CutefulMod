@@ -12,7 +12,7 @@ import java.io.IOException;
 
 public class CutefulModScreen extends Screen {
 
-    private ButtonListWidget list;
+    private OptionListWidget list;
     private final Configs configs;
 
     public CutefulModScreen() {
@@ -23,7 +23,7 @@ public class CutefulModScreen extends Screen {
     @Override
     public void init(MinecraftClient client, int width, int height) {
         super.init(client, width, height);
-        list = new ButtonListWidget(client, width, height, 32, this.height - 32, 25);
+        list = new OptionListWidget(client, width, height, 32, this.height - 32, 25);
         list.addAll(configs.allBooleanConfigs);
 
 
