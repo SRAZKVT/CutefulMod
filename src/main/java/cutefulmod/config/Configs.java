@@ -86,7 +86,6 @@ public class Configs extends GameOptions {
 
     public static void setRenderNoFog(boolean value) {
         Configs.getInstance().renderNoFog = value;
-        System.out.println("setRenderNoFog Used");
     }
     public static boolean getRenderNoFog() {
         return Configs.getInstance().renderNoFog;
