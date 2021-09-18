@@ -5,7 +5,6 @@ import cutefulmod.gui.CutefulModScreen;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.options.GameOptions;
-import net.minecraft.text.LiteralText;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
@@ -20,6 +19,9 @@ public abstract class MinecraftClientMixin {
 
     @Shadow public abstract void openScreen(Screen screen);
 
+    @Shadow
+    public Screen currentScreen;
+
     @Inject(
             method = "handleInputEvents",
             at = @At(
@@ -28,7 +30,7 @@ public abstract class MinecraftClientMixin {
     )
     private void handleCutefulModMenuKeybind(CallbackInfo ci) {
         while (((IGameOptions) options).getCutefulModMenu().wasPressed()) {
-            openScreen(new CutefulModScreen());
+            openScreen(new CutefulModScreen(this.currentScreen));
         }
     }
 }
