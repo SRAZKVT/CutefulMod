@@ -17,10 +17,12 @@ public class CutefulModScreen extends Screen {
 
     private OptionListWidget list;
     private final Configs configs;
+    private final Screen parent;
 
-    public CutefulModScreen() {
+    public CutefulModScreen(Screen parent) {
         super(new LiteralText("CutefulMod Options"));
         configs = Configs.getInstance();
+        this.parent = parent;
     }
 
     @Override
@@ -33,7 +35,7 @@ public class CutefulModScreen extends Screen {
 
 
         this.addButton(new ButtonWidget(this.width / 2 - 155 + 160, this.height - 29, 150, 20, Text.of("Done"), (buttonWidget) -> {
-            this.client.openScreen(null); //minecraft.openScreen(null);
+            this.onClose();
         }));
         this.addButton(new ButtonWidget(this.width / 2 - 155, this.height - 29, 150, 20, Text.of("Reset Config"), (buttonWidget) -> {
             for (BooleanOption config : configs.allBooleanConfigs) {
@@ -41,7 +43,7 @@ public class CutefulModScreen extends Screen {
                     config.set(configs, "false");
                 }
             }
-            this.client.openScreen(new CutefulModScreen());
+            this.client.openScreen(new CutefulModScreen(this));
         }));
     }
 
@@ -53,12 +55,13 @@ public class CutefulModScreen extends Screen {
 
     @Override
     public void onClose() {
-        super.onClose();
+        //super.onClose();
         try {
             configs.saveToFile();
         } catch (IOException e) {
             e.printStackTrace();
         }
+        this.client.openScreen(this.parent);
     }
 
     public void render(MatrixStack matrices, int mousex, int mousey, float delta) {

@@ -20,6 +20,9 @@
   "entrypoints": {
     "main": [
       "cutefulmod.CutefulMod"
+    ],
+    "modmenu": [
+      "cutefulmod.compat.modmenu.ModMenuImpl"
     ]
   },
   "mixins": [
