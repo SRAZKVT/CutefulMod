@@ -40,12 +40,10 @@ public class OptionListWidget extends ElementListWidget<OptionListWidget.OptionE
     public static class OptionEntry extends ElementListWidget.Entry<OptionListWidget.OptionEntry> {
         private final AbstractButtonWidget button;
         private final String name;
-        private final int nameWidth;
 
         public OptionEntry(AbstractButtonWidget button, String name) {
             this.button = button;
             this.name = name;
-            this.nameWidth = MinecraftClient.getInstance().textRenderer.getStringWidth(name);
         }
 
         public static OptionListWidget.OptionEntry create(Option option) {
@@ -72,6 +70,7 @@ public class OptionListWidget extends ElementListWidget<OptionListWidget.OptionE
             button.render(mouseX, mouseY, delta);
 
             TextRenderer textRenderer = MinecraftClient.getInstance().textRenderer;
+            assert MinecraftClient.getInstance().currentScreen != null;
             float xOfString = (float)(MinecraftClient.getInstance().currentScreen.width / 2 - 100);
             int yOfString = y + height / 2;
             textRenderer.draw(name, xOfString, (float)yOfString, 16777215);

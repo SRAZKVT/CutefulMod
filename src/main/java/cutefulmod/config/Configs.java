@@ -79,6 +79,11 @@ public class Configs extends GameOptions {
     }
 
     public static Configs getInstance() {
+        if (instance == null) {
+            try {
+                instance = new Configs();
+            } catch (IOException ignored) {}
+        }
         return instance;
     }
 

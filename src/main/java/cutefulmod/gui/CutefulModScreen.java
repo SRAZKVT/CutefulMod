@@ -29,15 +29,14 @@ public class CutefulModScreen extends Screen {
 
 
 
-        this.addButton(new ButtonWidget(this.width / 2 - 155 + 160, this.height - 29, 150, 20, "Done", (buttonWidget) -> {
-            this.onClose();
-        }));
+        this.addButton(new ButtonWidget(this.width / 2 - 155 + 160, this.height - 29, 150, 20, "Done", (buttonWidget) -> this.onClose()));
         this.addButton(new ButtonWidget(this.width / 2 - 155, this.height - 29, 150, 20, "Reset config", (buttonWidget) -> {
             for (BooleanOption config : configs.allBooleanConfigs) {
                 {
                     config.set(configs, "false");
                 }
             }
+            assert this.minecraft != null;
             this.minecraft.openScreen(new CutefulModScreen(this));
         }));
     }
@@ -55,7 +54,8 @@ public class CutefulModScreen extends Screen {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        minecraft.openScreen((Screen) this.parent);
+        assert minecraft != null;
+        minecraft.openScreen(this.parent);
     }
 
     public void render(int mousex, int mousey, float delta) {

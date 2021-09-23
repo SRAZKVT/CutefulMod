@@ -1,6 +1,5 @@
 package cutefulmod.mixin;
 
-import cutefulmod.config.Config;
 import cutefulmod.config.Configs;
 import net.minecraft.block.*;
 import net.minecraft.client.MinecraftClient;
