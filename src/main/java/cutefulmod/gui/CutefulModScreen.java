@@ -40,12 +40,12 @@ public class CutefulModScreen extends Screen {
             this.client.setScreen(null); //minecraft.openScreen(null);
         }));
         this.addDrawableChild(new ButtonWidget(this.width / 2 - 155, this.height - 29, 150, 20, Text.of("Reset Config"), (buttonWidget) -> {
-            for (CyclingOption<Boolean> config : configs.allBooleanConfigs) {
-                {
-                   //also borked
-                    //config.set(configs, "false");
-                }
-            }
+            //for (CyclingOption<Boolean> config : configs.allBooleanConfigs) {}
+            Configs.setRenderNoFog(false);
+            Configs.setFillCloneBoundingBox(false);
+            Configs.setBypassItemFrameEntity(false);
+            Configs.setDisableBlockBreakingParticles(false);
+            Configs.setDisablePotionEffectParticles(false);
             this.client.setScreen(new CutefulModScreen());
         }));
     }
@@ -56,7 +56,7 @@ public class CutefulModScreen extends Screen {
         return list.mouseClicked(mouseX, mouseY, button);
     }
 
-    @Override
+    /*@Override
     public void onClose() {
         super.onClose();
         try {
@@ -64,7 +64,7 @@ public class CutefulModScreen extends Screen {
         } catch (IOException e) {
             e.printStackTrace();
         }
-    }
+    }*/
 
     public void render(MatrixStack matrices, int mousex, int mousey, float delta) {
         this.renderBackgroundTexture(0); //.renderDirtBackground(0);
