@@ -14,7 +14,7 @@ public class OptionMixin implements IOption {
     @Shadow private Text key;
 
     @Override
-    public Text getKey() {
-        return key;
+    public String getKey() {
+        return key.getString();
     }
 }

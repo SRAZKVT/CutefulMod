@@ -32,12 +32,18 @@ public class CutefulModScreen extends Screen {
 
 
         this.addDrawableChild(new ButtonWidget(this.width / 2 - 155 + 160, this.height - 29, 150, 20, Text.of("Done"), (buttonWidget) -> {
+            try {
+                configs.saveToFile();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
             this.client.setScreen(null); //minecraft.openScreen(null);
         }));
         this.addDrawableChild(new ButtonWidget(this.width / 2 - 155, this.height - 29, 150, 20, Text.of("Reset Config"), (buttonWidget) -> {
             for (CyclingOption<Boolean> config : configs.allBooleanConfigs) {
                 {
                    //also borked
+                    //config.set(configs, "false");
                 }
             }
             this.client.setScreen(new CutefulModScreen());

@@ -75,7 +75,29 @@ public class Configs extends GameOptions {
         configFile.delete();
         FileWriter fw = new FileWriter(configFile);
         for (CyclingOption<Boolean> config : allBooleanConfigs) {
-           //file write is borked
+            String configKey = ((IOption)config).getKey();
+            switch (configKey){
+                case "bypassItemFrameEntity":
+                    fw.write(((IOption)config).getKey() + " " + Configs.getBypassItemFrameEntity() + "\n");
+                    break;
+                case "renderNoFog":
+                    boolean render = Configs.getRenderNoFog();
+                    fw.write(((IOption)config).getKey() + " " + Configs.getRenderNoFog() + "\n");
+                    break;
+                case "fillCloneBoundingBox":
+                    fw.write(((IOption)config).getKey() + " " + Configs.getFillCloneBoundingBox() + "\n");
+                    break;
+                case "disableBlockBreakingParticles":
+                    fw.write(((IOption)config).getKey() + " " + Configs.getDisableBlockBreakingParticles() + "\n");
+                    break;
+                case "disablePotionEffectParticles":
+                    fw.write(((IOption)config).getKey() + " " + Configs.getDisablePotionEffectParticles() + "\n");
+                    break;
+            }
+            /*if(((IOption)config).getKey() == "renderNoFog"){
+                fw.write(((IOption)config).getKey() + " " + Configs.getRenderNoFog() + "\n");
+            }else if()*/
+
         }
         fw.close();
     }
@@ -88,7 +110,7 @@ public class Configs extends GameOptions {
 
     public static void setRenderNoFog(boolean value) {
         Configs.getInstance().renderNoFog = value;
-        System.out.println("setRenderNoFog Used");
+        //System.out.println("setRenderNoFog Used");
     }
     public static boolean getRenderNoFog() {
         return Configs.getInstance().renderNoFog;
