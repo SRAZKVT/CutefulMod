@@ -6,14 +6,13 @@ import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
-
-import static cutefulmod.config.Configs.getRenderNoFog;
+import cutefulmod.config.Configs;
 
 @Mixin(BackgroundRenderer.class)
 public class BackgroundRendererMixin {
     @Inject(method = "applyFog", at = @At(value = "HEAD"), cancellable = true)
     private static void renderNoFog(Camera camera, BackgroundRenderer.FogType fogType, float viewDistance, boolean thickFog, CallbackInfo ci) {
-        if (getRenderNoFog()) {
+        if (Configs.getRenderNoFog()) {
             ci.cancel();
         }
     }
