@@ -41,11 +41,7 @@ public class CutefulModScreen extends Screen {
         }));
         this.addDrawableChild(new ButtonWidget(this.width / 2 - 155, this.height - 29, 150, 20, Text.of("Reset Config"), (buttonWidget) -> {
             //for (CyclingOption<Boolean> config : configs.allBooleanConfigs) {}
-            Configs.setRenderNoFog(false);
-            Configs.setFillCloneBoundingBox(false);
-            Configs.setBypassItemFrameEntity(false);
-            Configs.setDisableBlockBreakingParticles(false);
-            Configs.setDisablePotionEffectParticles(false);
+            Configs.setAll(false);
             this.client.setScreen(new CutefulModScreen());
         }));
     }

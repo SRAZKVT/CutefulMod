@@ -106,7 +106,13 @@ public class Configs extends GameOptions {
         return instance;
     }
 
-
+    public static void setAll(boolean value){
+        Configs.setRenderNoFog(value);
+        Configs.setFillCloneBoundingBox(value);
+        Configs.setBypassItemFrameEntity(value);
+        Configs.setDisableBlockBreakingParticles(value);
+        Configs.setDisablePotionEffectParticles(value);
+    }
 
     public static void setRenderNoFog(boolean value) {
         Configs.getInstance().renderNoFog = value;
