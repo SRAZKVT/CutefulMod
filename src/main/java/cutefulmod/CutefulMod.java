@@ -3,7 +3,6 @@ package cutefulmod;
 import cutefulmod.config.Configs;
 import net.fabricmc.api.ModInitializer;
 
-import java.io.FileNotFoundException;
 import java.io.IOException;
 
 public class CutefulMod implements ModInitializer {

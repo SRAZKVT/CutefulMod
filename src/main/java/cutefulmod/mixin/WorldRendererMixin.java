@@ -7,7 +7,6 @@ import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.screen.ChatScreen;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.render.*;
-//import net.minecraft.client.util.math.Matrix4f;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Matrix4f;
@@ -18,7 +17,6 @@ import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
-import org.lwjgl.opengl.GL11;
 
 @Mixin(WorldRenderer.class)
 public abstract class WorldRendererMixin {
@@ -133,7 +131,6 @@ public abstract class WorldRendererMixin {
         RenderSystem.defaultBlendFunc();
         RenderSystem.disableTexture();
         RenderSystem.depthMask(false);
-        //RenderSystem.disableLighting();
 
         bufferBuilder.begin(VertexFormat.DrawMode.DEBUG_LINES, VertexFormats.POSITION_COLOR);
         drawBox(bufferBuilder, model, pos1, pos2, outlinered, outlinegreen, outlineblue, 1, true);
@@ -145,7 +142,6 @@ public abstract class WorldRendererMixin {
 
         matrices.pop();
 
-        //RenderSystem.enableLighting();
         RenderSystem.depthMask(true);
         RenderSystem.enableTexture();
         RenderSystem.disableBlend();

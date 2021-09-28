@@ -1,7 +1,5 @@
 package cutefulmod.gui;
 
-import net.fabricmc.api.EnvType;
-import net.fabricmc.api.Environment;
 import cutefulmod.IOption;
 import cutefulmod.config.Configs;
 import net.fabricmc.api.EnvType;
@@ -10,7 +8,7 @@ import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.font.TextRenderer;
 import net.minecraft.client.gui.Element;
 import net.minecraft.client.gui.Selectable;
-import net.minecraft.client.gui.widget.ClickableWidget;  //AbstractButtonWidget;
+import net.minecraft.client.gui.widget.ClickableWidget;
 import net.minecraft.client.gui.widget.ElementListWidget;
 import net.minecraft.client.option.Option;
 import net.minecraft.client.util.math.MatrixStack;
@@ -18,7 +16,6 @@ import net.minecraft.text.Text;
 
 import java.util.Collections;
 import java.util.List;
-
 
 
 @Environment(EnvType.CLIENT)
@@ -37,10 +34,6 @@ public class OptionListWidget extends ElementListWidget<OptionListWidget.OptionE
     public int getRowWidth() {
         return 400;
     }
-
-    //protected int getScrollbarPosition() {
-       // return super.getScrollbarPosition() + 32;
-    //}
 
     @Environment(EnvType.CLIENT)
     public static class OptionEntry extends ElementListWidget.Entry<OptionListWidget.OptionEntry> {
@@ -78,6 +71,7 @@ public class OptionListWidget extends ElementListWidget<OptionListWidget.OptionE
             button.render(matrices,mouseX, mouseY, delta);
 
             TextRenderer textRenderer = MinecraftClient.getInstance().textRenderer;
+            assert MinecraftClient.getInstance().currentScreen != null;
             float xOfString = (float)(MinecraftClient.getInstance().currentScreen.width / 2 - 100);
             int yOfString = y + height / 2;
             textRenderer.draw(matrices,Text.of(name), xOfString, (float)yOfString, 16777215);
