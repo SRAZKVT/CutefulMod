@@ -1,15 +1,14 @@
 package cutefulmod.config;
 
+import cutefulmod.IOption;
+import net.minecraft.client.MinecraftClient;
+import net.minecraft.client.option.CyclingOption;
+import net.minecraft.client.option.GameOptions;
+
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.Scanner;
-import cutefulmod.IOption;
-import net.minecraft.client.MinecraftClient;
-//import net.minecraft.client.option.BooleanOption;
-import net.minecraft.client.option.CyclingOption;
-import net.minecraft.client.option.GameOptions;
-import net.minecraft.client.option.Option;
 
 public class Configs extends GameOptions {
     public static Configs instance;
@@ -94,10 +93,6 @@ public class Configs extends GameOptions {
                     fw.write(((IOption)config).getKey() + " " + Configs.getDisablePotionEffectParticles() + "\n");
                     break;
             }
-            /*if(((IOption)config).getKey() == "renderNoFog"){
-                fw.write(((IOption)config).getKey() + " " + Configs.getRenderNoFog() + "\n");
-            }else if()*/
-
         }
         fw.close();
     }
@@ -116,7 +111,6 @@ public class Configs extends GameOptions {
 
     public static void setRenderNoFog(boolean value) {
         Configs.getInstance().renderNoFog = value;
-        //System.out.println("setRenderNoFog Used");
     }
     public static boolean getRenderNoFog() {
         return Configs.getInstance().renderNoFog;
