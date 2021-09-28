@@ -13,7 +13,8 @@
     "ParticleManagerMixin",
     "SpellParticleMixin",
     "WorldRendererMixin",
-    "OptionMixin"
+    "OptionMixin",
+    "CommandManagerMixin"
   ],
   "injectors": {
     "defaultRequire": 1
