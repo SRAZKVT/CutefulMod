@@ -1,6 +1,6 @@
 package cutefulmod.config;
 
-import net.minecraft.client.gui.widget.ButtonWidget; //AbstractButtonWidget;
+import net.minecraft.client.gui.widget.ButtonWidget;
 import net.minecraft.client.option.BooleanOption;
 import net.minecraft.client.option.GameOptions;
 import net.minecraft.client.option.Option;

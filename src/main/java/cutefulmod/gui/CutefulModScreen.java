@@ -3,9 +3,7 @@ package cutefulmod.gui;
 import cutefulmod.config.Configs;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.screen.Screen;
-import net.minecraft.client.gui.widget.ButtonListWidget;
 import net.minecraft.client.gui.widget.ButtonWidget;
-import net.minecraft.client.gui.widget.ClickableWidget;
 import net.minecraft.client.option.BooleanOption;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.text.LiteralText;
@@ -55,21 +53,20 @@ public class CutefulModScreen extends Screen {
 
     @Override
     public void onClose() {
-        //super.onClose();
         try {
             configs.saveToFile();
         } catch (IOException e) {
             e.printStackTrace();
         }
+        assert this.client != null;
         this.client.openScreen(this.parent);
     }
 
     public void render(MatrixStack matrices, int mousex, int mousey, float delta) {
-        this.renderBackgroundTexture(0); //.renderDirtBackground(0);
+        this.renderBackgroundTexture(0);
         this.list.render(matrices,mousex, mousey, delta);
         assert client != null;
         drawCenteredText(matrices,client.textRenderer, this.getNarrationMessage(), this.width / 2, 15, 16777215);
-        //drawCenteredText();
         super.render(matrices,mousex, mousey, delta);
     }
 

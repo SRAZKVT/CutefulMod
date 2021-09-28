@@ -1,7 +1,7 @@
 package cutefulmod.compat.modmenu;
 
+import com.terraformersmc.modmenu.api.ConfigScreenFactory;
 import cutefulmod.gui.CutefulModScreen;
-import io.github.prospector.modmenu.api.ConfigScreenFactory;
 import net.minecraft.client.gui.screen.Screen;
 
 public class CutefulModScreenFactory implements ConfigScreenFactory {

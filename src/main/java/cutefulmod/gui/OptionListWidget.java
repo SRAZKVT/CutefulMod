@@ -7,10 +7,8 @@ import net.fabricmc.api.Environment;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.font.TextRenderer;
 import net.minecraft.client.gui.Element;
-//import net.minecraft.client.gui.widget.AbstractButtonWidget;
 import net.minecraft.client.gui.widget.ClickableWidget;
 import net.minecraft.client.gui.widget.ElementListWidget;
-import net.minecraft.client.gui.widget.EntryListWidget;
 import net.minecraft.client.option.Option;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.text.Text;
@@ -36,20 +34,14 @@ public class OptionListWidget extends ElementListWidget<OptionListWidget.OptionE
         return 400;
     }
 
-    protected int getScrollbarPosition() {
-        return super.getScrollbarPositionX() + 32; //.getScrollbarPosition() + 32;
-    }
-
     @Environment(EnvType.CLIENT)
     public static class OptionEntry extends ElementListWidget.Entry<OptionListWidget.OptionEntry> {
         private final ClickableWidget button;
         private final String name;
-        private final int nameWidth;
 
         public OptionEntry(ClickableWidget button, String name) {
             this.button = button;
             this.name = name;
-            this.nameWidth = MinecraftClient.getInstance().textRenderer.getWidth(name);  //.getStringWidth(name);
         }
 
         public static OptionListWidget.OptionEntry create(Option option) {
@@ -71,13 +63,13 @@ public class OptionListWidget extends ElementListWidget<OptionListWidget.OptionE
         public void render(MatrixStack matrices, int index, int y, int x, int width, int height, int mouseX, int mouseY, boolean hovering, float delta) {
             button.y = y + 5;
             button.x = x + 275;
-            //String[] string = button.getMessage().getString().split(" ");
             String[] strings = button.getMessage().getString().split(": ");
             button.setMessage(Text.of(strings[strings.length-1])); //Text.of(string[string.length - 1])
 
             button.render(matrices,mouseX, mouseY, delta);
 
             TextRenderer textRenderer = MinecraftClient.getInstance().textRenderer;
+            assert MinecraftClient.getInstance().currentScreen != null;
             float xOfString = (float)(MinecraftClient.getInstance().currentScreen.width / 2 - 100);
             int yOfString = y + height / 2;
             textRenderer.draw(matrices,name, xOfString, (float)yOfString, 16777215);
