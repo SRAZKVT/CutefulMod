@@ -1,26 +1,26 @@
 package cutefulmod.gui;
 
 import cutefulmod.config.Configs;
-import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.screen.Screen;
-import net.minecraft.client.gui.widget.ButtonListWidget;
 import net.minecraft.client.gui.widget.ButtonWidget;
-//import net.minecraft.client.option.BooleanOption;
-import net.minecraft.client.option.CyclingOption;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.text.LiteralText;
 import net.minecraft.text.Text;
 
 import java.io.IOException;
 
+
+
 public class CutefulModScreen extends Screen {
 
     private OptionListWidget list;
     private final Configs configs;
+    private final Screen parent;
 
-    public CutefulModScreen() {
+    public CutefulModScreen(Screen parent) {
         super(new LiteralText("CutefulMod Options"));
         configs = Configs.getInstance();
+        this.parent = parent;
     }
 
 
@@ -32,17 +32,13 @@ public class CutefulModScreen extends Screen {
 
 
         this.addDrawableChild(new ButtonWidget(this.width / 2 - 155 + 160, this.height - 29, 150, 20, Text.of("Done"), (buttonWidget) -> {
-            try {
-                configs.saveToFile();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-            this.client.setScreen(null); //minecraft.openScreen(null);
+            this.onClose(); //minecraft.openScreen(null);
         }));
         this.addDrawableChild(new ButtonWidget(this.width / 2 - 155, this.height - 29, 150, 20, Text.of("Reset Config"), (buttonWidget) -> {
             //for (CyclingOption<Boolean> config : configs.allBooleanConfigs) {}
             Configs.setAll(false);
-            this.client.setScreen(new CutefulModScreen());
+            assert this.client != null;
+            this.client.setScreen(new CutefulModScreen(this));
         }));
     }
 
@@ -52,15 +48,17 @@ public class CutefulModScreen extends Screen {
         return list.mouseClicked(mouseX, mouseY, button);
     }
 
-    /*@Override
+    @Override
     public void onClose() {
-        super.onClose();
+        //super.onClose();
         try {
             configs.saveToFile();
         } catch (IOException e) {
             e.printStackTrace();
         }
-    }*/
+        assert this.client != null;
+        this.client.setScreen(this.parent);
+    }
 
     public void render(MatrixStack matrices, int mousex, int mousey, float delta) {
         this.renderBackgroundTexture(0); //.renderDirtBackground(0);

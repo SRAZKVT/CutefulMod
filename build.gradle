@@ -16,8 +16,10 @@ repositories {
 	// Loom adds the essential maven repositories to download Minecraft and libraries from automatically.
 	// See https://docs.gradle.org/current/userguide/declaring_repositories.html
 	// for more information about repositories.
+	mavenCentral()
 	maven {
-		url 'https://masa.dy.fi/maven'
+		name = "TerraformersMC"
+		url = "https://maven.terraformersmc.com/releases/"
 	}
 }
 
@@ -26,6 +28,8 @@ dependencies {
 	minecraft "com.mojang:minecraft:1.17.1"
 	mappings "net.fabricmc:yarn:1.17.1+build.39:v2"
 	modImplementation "net.fabricmc:fabric-loader:0.11.6"
+
+	modImplementation "com.terraformersmc:modmenu:${project.modmenu_version}"
 	// PSA: Some older mods, compiled on Loom 0.2.1, might have outdated Maven POMs.
 	// You may need to force-disable transitiveness on them.
 }
