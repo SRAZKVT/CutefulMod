@@ -12,6 +12,7 @@ public abstract class Config extends Option {
     public static final BooleanOption FILL_CLONE_BOUNDING_BOX;
     public static final BooleanOption DISABLE_BLOCK_BREAKING_PARTICLES;
     public static final BooleanOption DISABLE_POTION_EFFECT_PARTICLES;
+    public static final BooleanOption TNT_RANGE_VISUALIZER;
 
     static {
         DISABLE_FOG = new BooleanOption("renderNoFog",
@@ -37,6 +38,9 @@ public abstract class Config extends Option {
                 config -> Configs.getDisablePotionEffectParticles(),
                 (config, disablePotionEffectParticles) -> Configs.setDisablePotionEffectParticles(disablePotionEffectParticles)
         );
+        TNT_RANGE_VISUALIZER = new BooleanOption("tntRangeVisualizer",
+                config -> Configs.getTntRangeVisualizer(),
+                (config, tntRangeVisualizer) -> Configs.setTntRangeVisualizer(tntRangeVisualizer));
     }
 
     public Config(String key) {
