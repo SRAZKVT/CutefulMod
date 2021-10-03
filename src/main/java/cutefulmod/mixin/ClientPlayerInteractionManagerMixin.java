@@ -1,12 +1,15 @@
 package cutefulmod.mixin;
 
 import cutefulmod.config.Configs;
+import cutefulmod.render.CutefulRenderController;
+import cutefulmod.util.TntToRender;
 import net.minecraft.block.*;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.network.ClientPlayerEntity;
 import net.minecraft.client.network.ClientPlayerInteractionManager;
 import net.minecraft.client.world.ClientWorld;
 import net.minecraft.entity.Entity;
+import net.minecraft.entity.TntEntity;
 import net.minecraft.entity.decoration.ItemFrameEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.util.ActionResult;
@@ -41,6 +44,14 @@ public abstract class ClientPlayerInteractionManagerMixin {
 					}
 				}
 			}
+		}else if (entity instanceof TntEntity) {
+			TntToRender tnt = new TntToRender((TntEntity) entity);
+			if (CutefulRenderController.getTntToRender().contains(tnt)) {
+				CutefulRenderController.getTntToRender().remove(tnt);
+			} else {
+				CutefulRenderController.getTntToRender().add(tnt);
+			}
+			cir.setReturnValue(ActionResult.SUCCESS);
 		}
 	}
 

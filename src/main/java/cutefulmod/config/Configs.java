@@ -19,8 +19,9 @@ public class Configs extends GameOptions {
     private boolean fillCloneBoundingBox = false;
     private boolean disableBlockBreakingParticles = false;
     private boolean disablePotionEffectParticles = false;
+    private boolean tntRangeVisualizer = false;
 
-    public Configs() throws IOException {
+    private Configs() throws IOException {
         super(MinecraftClient.getInstance(), new File(new File(MinecraftClient.getInstance().runDirectory, "config"), "cuteful.txt"));
         instance = this;
         allBooleanConfigs = new BooleanOption[]{
@@ -28,7 +29,8 @@ public class Configs extends GameOptions {
                 Config.BYPASS_ITEM_FRAME_ENTITY,
                 Config.FILL_CLONE_BOUNDING_BOX,
                 Config.DISABLE_BLOCK_BREAKING_PARTICLES,
-                Config.DISABLE_POTION_EFFECT_PARTICLES
+                Config.DISABLE_POTION_EFFECT_PARTICLES,
+                Config.TNT_RANGE_VISUALIZER
         };
         loadFromFile();
     }
@@ -57,6 +59,9 @@ public class Configs extends GameOptions {
                         case "disablePotionEffectParticles":
                             disablePotionEffectParticles = (configWord[1].equals("true"));
                             break;
+                        case "tntRangeVisualizer":
+                            tntRangeVisualizer = (configWord[1].equals("true"));
+                            break;
                     }
                     System.out.println("CutefulMod : Loaded " + configWord[0] + " as " + configWord[1]);
                 } else {
@@ -79,6 +84,11 @@ public class Configs extends GameOptions {
     }
 
     public static Configs getInstance() {
+        if (instance == null) {
+            try {
+                instance = new Configs();
+            } catch (IOException ignored) {}
+        }
         return instance;
     }
 
@@ -114,5 +124,11 @@ public class Configs extends GameOptions {
     }
     public static boolean getDisablePotionEffectParticles() {
         return Configs.getInstance().disablePotionEffectParticles;
+    }
+    public static void setTntRangeVisualizer(boolean value) {
+        Configs.getInstance().tntRangeVisualizer = value;
+    }
+    public static boolean getTntRangeVisualizer() {
+        return Configs.getInstance().tntRangeVisualizer;
     }
 }

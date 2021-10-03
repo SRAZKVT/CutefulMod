@@ -41,6 +41,7 @@ public class CutefulModScreen extends Screen {
                     config.set(configs, "false");
                 }
             }
+            assert this.client != null;
             this.client.openScreen(new CutefulModScreen(this));
         }));
     }
