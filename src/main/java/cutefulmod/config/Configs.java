@@ -43,25 +43,10 @@ public class Configs extends GameOptions {
                 String line = reader.nextLine();
                 configWord = line.split(" ");
                 if (configWord.length > 1) {
-                    switch (configWord[0]) {
-                        case "bypassItemFrameEntity":
-                            bypassItemFrameEntity = (configWord[1].equals("true"));
-                            break;
-                        case "renderNoFog":
-                            renderNoFog = (configWord[1].equals("true"));
-                            break;
-                        case "fillCloneBoundingBox":
-                            fillCloneBoundingBox = (configWord[1].equals("true"));
-                            break;
-                        case "disableBlockBreakingParticles":
-                            disableBlockBreakingParticles = (configWord[1].equals("true"));
-                            break;
-                        case "disablePotionEffectParticles":
-                            disablePotionEffectParticles = (configWord[1].equals("true"));
-                            break;
-                        case "tntRangeVisualizer":
-                            tntRangeVisualizer = (configWord[1].equals("true"));
-                            break;
+                    for (BooleanOption option : allBooleanConfigs) {
+                        if (((IOption)option).getKey().equals(configWord[0])) {
+                            option.set(this, configWord[1]);
+                        }
                     }
                     System.out.println("CutefulMod : Loaded " + configWord[0] + " as " + configWord[1]);
                 } else {
