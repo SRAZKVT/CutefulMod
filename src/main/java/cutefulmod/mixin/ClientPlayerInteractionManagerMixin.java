@@ -2,6 +2,7 @@ package cutefulmod.mixin;
 
 import cutefulmod.config.Configs;
 import cutefulmod.render.CutefulRenderController;
+import cutefulmod.util.CutefulUtils;
 import cutefulmod.util.TntToRender;
 import net.minecraft.block.*;
 import net.minecraft.client.MinecraftClient;
@@ -12,6 +13,7 @@ import net.minecraft.entity.Entity;
 import net.minecraft.entity.TntEntity;
 import net.minecraft.entity.decoration.ItemFrameEntity;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.text.LiteralText;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
 import net.minecraft.util.hit.BlockHitResult;
@@ -44,14 +46,26 @@ public abstract class ClientPlayerInteractionManagerMixin {
 					}
 				}
 			}
-		} else if (entity instanceof TntEntity && Configs.getTntRangeVisualizer()) {
-			TntToRender tnt = new TntToRender((TntEntity) entity);
-			if (CutefulRenderController.getTntToRender().contains(tnt)) {
-				CutefulRenderController.getTntToRender().remove(tnt);
-			} else {
-				CutefulRenderController.getTntToRender().add(tnt);
+		} else if (entity instanceof TntEntity) {
+			if (Configs.getTntRangeVisualizer()) {
+				TntToRender tnt = new TntToRender((TntEntity) entity);
+				if (CutefulRenderController.getTntToRender().contains(tnt)) {
+					CutefulRenderController.getTntToRender().remove(tnt);
+				} else {
+					CutefulRenderController.getTntToRender().add(tnt);
+				}
 			}
-			cir.setReturnValue(ActionResult.SUCCESS);
+			if (Configs.getTntRayCount()) {
+				if (Configs.getBlockToCheckRaysOn() != null) {
+					CutefulUtils.simulateExplosion(1, (TntEntity) entity, true);
+				} else {
+					assert MinecraftClient.getInstance().player != null;
+					MinecraftClient.getInstance().player.addChatMessage(new LiteralText("You didn't set a position to check rays for."), false);
+				}
+			}
+			if (Configs.getTntRayCount() || Configs.getTntRangeVisualizer()) {
+				cir.setReturnValue(ActionResult.SUCCESS);
+			}
 		}
 	}
 

@@ -2,6 +2,7 @@ package cutefulmod.mixin;
 
 import com.mojang.brigadier.CommandDispatcher;
 import cutefulmod.commands.BackCommand;
+import cutefulmod.commands.RayCountCommand;
 import cutefulmod.commands.StoneCommand;
 import net.minecraft.server.command.CommandManager;
 import net.minecraft.server.command.ServerCommandSource;
@@ -23,5 +24,6 @@ public class CommandManagerMixin {
     private void injectCommands(boolean isDedicatedServer, CallbackInfo ci) {
         StoneCommand.registerCommand(this.dispatcher);
         BackCommand.registerCommand(this.dispatcher);
+        RayCountCommand.register(this.dispatcher);
     }
 }

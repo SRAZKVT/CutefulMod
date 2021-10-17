@@ -13,6 +13,7 @@ public abstract class Config extends Option {
     public static final BooleanOption DISABLE_BLOCK_BREAKING_PARTICLES;
     public static final BooleanOption DISABLE_POTION_EFFECT_PARTICLES;
     public static final BooleanOption TNT_RANGE_VISUALIZER;
+    public static final BooleanOption TNT_RAY_COUNT;
 
     static {
         DISABLE_FOG = new BooleanOption("renderNoFog",
@@ -40,7 +41,12 @@ public abstract class Config extends Option {
         );
         TNT_RANGE_VISUALIZER = new BooleanOption("tntRangeVisualizer",
                 config -> Configs.getTntRangeVisualizer(),
-                (config, tntRangeVisualizer) -> Configs.setTntRangeVisualizer(tntRangeVisualizer));
+                (config, tntRangeVisualizer) -> Configs.setTntRangeVisualizer(tntRangeVisualizer)
+        );
+        TNT_RAY_COUNT = new BooleanOption("tntRayCount",
+                config -> Configs.getTntRayCount(),
+                (config, tntRayCount) -> Configs.setTntRayCount(tntRayCount)
+        );
     }
 
     public Config(String key) {

@@ -9,9 +9,12 @@ import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.network.ClientPlayerEntity;
 import net.minecraft.client.options.BooleanOption;
 import net.minecraft.client.options.GameOptions;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Vec3d;
 
 public class Configs extends GameOptions {
+    private static BlockPos blockToCheckRaysOn = null;
+
     private static Vec3d lastPos = null;
     private static String lastDim = "";
 
@@ -25,6 +28,7 @@ public class Configs extends GameOptions {
     private boolean disableBlockBreakingParticles = false;
     private boolean disablePotionEffectParticles = false;
     private boolean tntRangeVisualizer = false;
+    private boolean tntRaysCount = false;
 
     private Configs() throws IOException {
         super(MinecraftClient.getInstance(), new File(new File(MinecraftClient.getInstance().runDirectory, "config"), "cuteful.txt"));
@@ -35,7 +39,8 @@ public class Configs extends GameOptions {
                 Config.FILL_CLONE_BOUNDING_BOX,
                 Config.DISABLE_BLOCK_BREAKING_PARTICLES,
                 Config.DISABLE_POTION_EFFECT_PARTICLES,
-                Config.TNT_RANGE_VISUALIZER
+                Config.TNT_RANGE_VISUALIZER,
+                Config.TNT_RAY_COUNT
         };
         loadFromFile();
     }
@@ -119,6 +124,12 @@ public class Configs extends GameOptions {
     }
     public static boolean getTntRangeVisualizer() {
         return Configs.getInstance().tntRangeVisualizer;
+
+    }public static void setTntRayCount(boolean value) {
+        Configs.getInstance().tntRaysCount = value;
+    }
+    public static boolean getTntRayCount() {
+        return Configs.getInstance().tntRaysCount;
     }
 
     public static Vec3d getLastPos() {
@@ -155,5 +166,13 @@ public class Configs extends GameOptions {
                 break;
         }
         setLastDim(dimName);
+    }
+
+    public static BlockPos getBlockToCheckRaysOn() {
+        return blockToCheckRaysOn;
+    }
+
+    public static void setBlockToCheckRaysOn(BlockPos blockToCheckRaysOn) {
+        Configs.blockToCheckRaysOn = blockToCheckRaysOn;
     }
 }

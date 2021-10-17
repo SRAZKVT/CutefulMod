@@ -1,9 +1,11 @@
 package cutefulmod.util;
 
+import cutefulmod.config.Configs;
 import net.minecraft.block.BlockState;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.entity.TntEntity;
 import net.minecraft.fluid.FluidState;
+import net.minecraft.text.LiteralText;
 import net.minecraft.util.math.BlockPos;
 import java.util.HashSet;
 import java.util.Set;
@@ -55,9 +57,14 @@ public class CutefulUtils {
         pos = new BlockPos(posX, posY, posZ);
         return pos;
     }
-    
+
     public static Set<BlockPos> simulateExplosion(float raySizeMultiplier, TntEntity tnt) {
+        return simulateExplosion(raySizeMultiplier, tnt, false);
+    }
+
+    public static Set<BlockPos> simulateExplosion(float raySizeMultiplier, TntEntity tnt, boolean countRaysHittingBlockPos) {
         Set<BlockPos> toExplode = new HashSet<>();
+        int raysHittingBlockPos = 0;
         for (int i = 0; i < 16; ++i) {
             for (int j = 0; j < 16; ++j) {
                 for (int k = 0; k < 16; ++k) {
@@ -92,6 +99,10 @@ public class CutefulUtils {
                             // if ray goes through block then it is added to the list of blocks to explode
                             if (rayStrength > 0.0F) {
                                 toExplode.add(blockPos);
+                                if (countRaysHittingBlockPos && blockPos.equals(Configs.getBlockToCheckRaysOn())) {
+                                    rayStrength = 0;
+                                    raysHittingBlockPos++;
+                                }
                             }
 
                             // reduces ray strength (without this ray going through air only would keep looping)
@@ -105,6 +116,10 @@ public class CutefulUtils {
                     }
                 }
             }
+        }
+        if (countRaysHittingBlockPos) {
+            assert MinecraftClient.getInstance().player != null;
+            MinecraftClient.getInstance().player.addChatMessage(new LiteralText("The block pos at : " + Configs.getBlockToCheckRaysOn().toString() + " has been struck by " + raysHittingBlockPos + " rays."), false);
         }
         return toExplode;
     }
