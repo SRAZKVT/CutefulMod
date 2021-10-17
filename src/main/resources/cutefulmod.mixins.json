@@ -14,7 +14,8 @@
     "ParticleManagerMixin",
     "SpellParticleMixin",
     "OptionMixin",
-    "CommandManagerMixin"
+    "CommandManagerMixin",
+    "ClientPlayNetworkHandlerMixin"
   ],
   "injectors": {
     "defaultRequire": 1

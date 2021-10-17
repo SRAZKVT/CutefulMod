@@ -6,10 +6,15 @@ import java.io.IOException;
 import java.util.Scanner;
 import cutefulmod.IOption;
 import net.minecraft.client.MinecraftClient;
+import net.minecraft.client.network.ClientPlayerEntity;
 import net.minecraft.client.options.BooleanOption;
 import net.minecraft.client.options.GameOptions;
+import net.minecraft.util.math.Vec3d;
 
 public class Configs extends GameOptions {
+    private static Vec3d lastPos = null;
+    private static String lastDim = "";
+
     public static Configs instance;
     private final File configFile = new File(new File(MinecraftClient.getInstance().runDirectory, "config"), "cuteful.txt");
     public BooleanOption[] allBooleanConfigs;
@@ -114,5 +119,41 @@ public class Configs extends GameOptions {
     }
     public static boolean getTntRangeVisualizer() {
         return Configs.getInstance().tntRangeVisualizer;
+    }
+
+    public static Vec3d getLastPos() {
+        return lastPos;
+    }
+
+    public static void setLastPos(Vec3d pos) {
+        lastPos = pos;
+    }
+
+    public static String getLastDim() {
+        return lastDim;
+    }
+
+    public static void setLastDim (String dim){
+        lastDim = dim;
+    }
+
+    public static void updateLastPosDim() {
+        ClientPlayerEntity player = MinecraftClient.getInstance().player;
+        assert player != null;
+        setLastPos(player.getPos());
+        int dimId = player.dimension.getRawId();
+        String dimName = "";
+        switch (dimId) {
+            case -1:
+                dimName = "the_nether";
+                break;
+            case 0:
+                dimName = "overworld";
+                break;
+            case 1:
+                dimName = "the_end";
+                break;
+        }
+        setLastDim(dimName);
     }
 }
