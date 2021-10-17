@@ -8,4 +8,9 @@ public class ModMenuImpl implements ModMenuApi {
     public ConfigScreenFactory<?> getModConfigScreenFactory() {
         return new CutefulModScreenFactory();
     }
+
+    @Override
+    public String getModId() {
+        return "cutefulmod";
+    }
 }
