@@ -119,8 +119,12 @@ public class CutefulUtils {
         }
         if (countRaysHittingBlockPos) {
             assert MinecraftClient.getInstance().player != null;
-            MinecraftClient.getInstance().player.addChatMessage(new LiteralText("The block pos at : " + Configs.getBlockToCheckRaysOn().toString() + " has been struck by " + raysHittingBlockPos + " rays."), false);
+            MinecraftClient.getInstance().player.addChatMessage(new LiteralText("The block pos at : " + cutePositionFromPos(Configs.getBlockToCheckRaysOn()) + " has been struck by " + raysHittingBlockPos + " rays."), false);
         }
         return toExplode;
+    }
+
+    public static String cutePositionFromPos(BlockPos pos) {
+        return "x : " + pos.getX() + ", y : " + pos.getY() + ", z : " + pos.getZ();
     }
 }

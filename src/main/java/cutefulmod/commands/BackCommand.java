@@ -1,20 +1,21 @@
 package cutefulmod.commands;
 
 import com.mojang.brigadier.CommandDispatcher;
+import com.mojang.brigadier.builder.LiteralArgumentBuilder;
 import cutefulmod.config.Configs;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.command.CommandException;
-import net.minecraft.server.command.CommandManager;
-import net.minecraft.server.command.ServerCommandSource;
+import net.minecraft.server.command.CommandSource;
 import net.minecraft.text.LiteralText;
 import net.minecraft.util.math.Vec3d;
 
 public class BackCommand {
-    public static void registerCommand (CommandDispatcher<ServerCommandSource> dispatcher) {
-        dispatcher.register(CommandManager.literal("back").executes((commandContext) -> execute()));
+    public static void registerCommand (CommandDispatcher<CommandSource> dispatcher) {
+        LiteralArgumentBuilder<CommandSource> builder = LiteralArgumentBuilder.literal("back");
+        dispatcher.register(builder.executes((commandContext) -> execute()));
     }
 
-    private static int execute() {
+    public static int execute() {
         Vec3d lastPos = Configs.getLastPos();
         MinecraftClient mc = MinecraftClient.getInstance();
         assert mc.player != null;
