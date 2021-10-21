@@ -7,6 +7,7 @@ import net.minecraft.entity.TntEntity;
 import net.minecraft.fluid.FluidState;
 import net.minecraft.text.LiteralText;
 import net.minecraft.util.math.BlockPos;
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -64,6 +65,7 @@ public class CutefulUtils {
 
     public static Set<BlockPos> simulateExplosion(float raySizeMultiplier, TntEntity tnt, boolean countRaysHittingBlockPos) {
         Set<BlockPos> toExplode = new HashSet<>();
+        ArrayList<Double> probabilityOfRayBreakingBlock = new ArrayList<>();
         int raysHittingBlockPos = 0;
         for (int i = 0; i < 16; ++i) {
             for (int j = 0; j < 16; ++j) {
@@ -100,8 +102,22 @@ public class CutefulUtils {
                             if (rayStrength > 0.0F) {
                                 toExplode.add(blockPos);
                                 if (countRaysHittingBlockPos && blockPos.equals(Configs.getBlockToCheckRaysOn())) {
-                                    rayStrength = 0;
                                     raysHittingBlockPos++;
+                                    
+                                    // unwrap ray strength to get min nextFloat value that would break block
+                                    double rayStrengthCopy = rayStrength;
+                                    rayStrengthCopy = 5.2D - rayStrengthCopy;
+                                    rayStrengthCopy /= 4.0D;
+                                    rayStrengthCopy -= 0.7D;
+                                    rayStrengthCopy /= 0.6D;
+                                    // here raystrength needed to blow up block is below minimal of ray (2.8) and so block will be blown up 100% of the time
+                                    if (rayStrengthCopy <= 0) {
+                                        probabilityOfRayBreakingBlock.add(1.0D);
+                                    } else {
+                                        probabilityOfRayBreakingBlock.add(rayStrengthCopy);
+                                    }
+                                    // prevents code from counting a single ray as multiple succesful ones
+                                    rayStrength = 0.0F;
                                 }
                             }
 
@@ -119,7 +135,16 @@ public class CutefulUtils {
         }
         if (countRaysHittingBlockPos) {
             assert MinecraftClient.getInstance().player != null;
-            MinecraftClient.getInstance().player.addChatMessage(new LiteralText("The block pos at : " + cutePositionFromPos(Configs.getBlockToCheckRaysOn()) + " has been struck by " + raysHittingBlockPos + " rays."), false);
+            MinecraftClient.getInstance().player.addChatMessage(new LiteralText("The block pos at " + cutePositionFromPos(Configs.getBlockToCheckRaysOn()) + " has been struck by " + raysHittingBlockPos + " rays."), false);
+            double probabilityOfBlockBeingBlownUp = 1D;
+            if (!probabilityOfRayBreakingBlock.contains(1D)) {
+                for (double probabilityOfRay : probabilityOfRayBreakingBlock) {
+                    probabilityOfRay = 1D - probabilityOfRay;
+                    probabilityOfBlockBeingBlownUp *= probabilityOfRay;
+                }
+                probabilityOfBlockBeingBlownUp = 1D - probabilityOfBlockBeingBlownUp;
+            }
+            MinecraftClient.getInstance().player.addChatMessage(new LiteralText("The probability of the block being blown up is " + probabilityOfBlockBeingBlownUp + " or " + probabilityOfBlockBeingBlownUp * 100 + "%."), false);
         }
         return toExplode;
     }
