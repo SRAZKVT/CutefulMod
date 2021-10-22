@@ -6,12 +6,16 @@ import cutefulmod.commands.RayCountCommand;
 import cutefulmod.commands.StoneCommand;
 import cutefulmod.config.Configs;
 import cutefulmod.util.CutefulUtils;
+import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.network.ClientPlayNetworkHandler;
+import net.minecraft.command.CommandException;
 import net.minecraft.command.CommandSource;
 import net.minecraft.server.command.ServerCommandSource;
 import net.minecraft.network.Packet;
 import net.minecraft.network.packet.c2s.play.ChatMessageC2SPacket;
 import net.minecraft.network.packet.s2c.play.CommandTreeS2CPacket;
+import net.minecraft.text.LiteralText;
+import net.minecraft.util.Formatting;
 import net.minecraft.util.math.BlockPos;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
@@ -23,6 +27,8 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 public class ClientPlayNetworkHandlerMixin {
     @Shadow
     private CommandDispatcher<ServerCommandSource> commandDispatcher;
+
+    @Shadow private MinecraftClient client;
 
     // taken from CutelessMod https://github.com/Nessiesson/CutelessMod but added case for /execute
     @Inject(
@@ -72,7 +78,7 @@ public class ClientPlayNetworkHandlerMixin {
             } catch (CommandException e) {
                 String error = e.getMessage();
                 assert this.client.player != null;
-                this.client.player.sendMessage((new LiteralText("")).append(error).formatted(Formatting.RED));
+                this.client.player.sendMessage(new LiteralText("").append(error).formatted(Formatting.RED),false);
                 ci.cancel();
             }
         }
