@@ -6,10 +6,19 @@ import java.io.IOException;
 import java.util.Scanner;
 import cutefulmod.IOption;
 import net.minecraft.client.MinecraftClient;
+import net.minecraft.client.network.ClientPlayerEntity;
 import net.minecraft.client.option.BooleanOption;
 import net.minecraft.client.option.GameOptions;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.Vec3d;
+import net.minecraft.world.dimension.DimensionType;
 
 public class Configs extends GameOptions {
+    private static BlockPos blockToCheckRaysOn = null;
+
+    private static Vec3d lastPos = null;
+    private static String lastDim = "";
+
     public static Configs instance;
     private final File configFile = new File(new File(MinecraftClient.getInstance().runDirectory, "config"), "cuteful.txt");
     public BooleanOption[] allBooleanConfigs;
@@ -20,6 +29,7 @@ public class Configs extends GameOptions {
     private boolean disableBlockBreakingParticles = false;
     private boolean disablePotionEffectParticles = false;
     private boolean tntRangeVisualizer = false;
+    private boolean tntRaysCount = false;
 
     private Configs() throws IOException {
         super(MinecraftClient.getInstance(), new File(new File(MinecraftClient.getInstance().runDirectory, "config"), "cuteful.txt"));
@@ -30,7 +40,8 @@ public class Configs extends GameOptions {
                 Config.FILL_CLONE_BOUNDING_BOX,
                 Config.DISABLE_BLOCK_BREAKING_PARTICLES,
                 Config.DISABLE_POTION_EFFECT_PARTICLES,
-                Config.TNT_RANGE_VISUALIZER
+                Config.TNT_RANGE_VISUALIZER,
+                Config.TNT_RAY_COUNT
         };
         loadFromFile();
     }
@@ -115,5 +126,51 @@ public class Configs extends GameOptions {
     }
     public static boolean getTntRangeVisualizer() {
         return Configs.getInstance().tntRangeVisualizer;
+    }
+    public static void setTntRayCount(boolean value) {
+        Configs.getInstance().tntRaysCount = value;
+    }
+    public static boolean getTntRayCount() {
+        return Configs.getInstance().tntRaysCount;
+    }
+
+    public static Vec3d getLastPos() {
+        return lastPos;
+    }
+
+    public static void setLastPos(Vec3d pos) {
+        lastPos = pos;
+    }
+
+    public static String getLastDim() {
+        return lastDim;
+    }
+
+    public static void setLastDim (String dim){
+        lastDim = dim;
+    }
+
+    public static void updateLastPosDim() {
+        ClientPlayerEntity player = MinecraftClient.getInstance().player;
+        assert player != null;
+        setLastPos(player.getPos());
+        DimensionType dimId = player.clientWorld.getDimension();
+        String dimName = "";
+        if (dimId.isBedWorking()) {
+            dimName = "overworld";
+        } else if (!dimId.isBedWorking() && dimId.isRespawnAnchorWorking()) {
+            dimName = "the_nether";
+        } else if (!dimId.isBedWorking() && dimId.hasEnderDragonFight()) {
+            dimName = "the_end";
+        }
+        setLastDim(dimName);
+    }
+
+    public static BlockPos getBlockToCheckRaysOn() {
+        return blockToCheckRaysOn;
+    }
+
+    public static void setBlockToCheckRaysOn(BlockPos blockToCheckRaysOn) {
+        Configs.blockToCheckRaysOn = blockToCheckRaysOn;
     }
 }

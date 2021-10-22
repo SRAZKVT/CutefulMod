@@ -14,7 +14,8 @@
     "SpellParticleMixin",
     "WorldRendererMixin",
     "OptionMixin",
-    "CommandManagerMixin"
+    "CommandManagerMixin",
+    "ClientPlayNetworkHandlerMixin"
   ],
   "injectors": {
     "defaultRequire": 1
