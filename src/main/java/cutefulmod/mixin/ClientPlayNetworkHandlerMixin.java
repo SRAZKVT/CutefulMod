@@ -53,17 +53,23 @@ public class ClientPlayNetworkHandlerMixin {
                         }
                         break;
                     case "/raycount":
-                        if (words.length > 3) {
-                            BlockPos pos = CutefulUtils.getBlockPosFromStrings(words[1], words[2], words[3]);
-                            if (pos != null) {
-                                RayCountCommand.execute(pos);
-                            }else {
-                                throw new CommandException(new LiteralText("Please enter a valid position"));
+                        if (Configs.getTntRayCount()) {
+                            if (words.length > 3) {
+                                BlockPos pos = CutefulUtils.getBlockPosFromStrings(words[1], words[2], words[3]);
+                                if (pos != null) {
+                                    RayCountCommand.execute(pos);
+                                } else {
+                                    throw new CommandException(new LiteralText("Please enter a valid position"));
+                                }
+                            } else {
+                                if (words.length == 2 && words[1].equals("reset")) {
+                                    RayCountCommand.execute(null);
+                                } else {
+                                    throw new CommandException(new LiteralText("Please enter a valid position"));
+                                }
                             }
-                        } else {
-                            throw new CommandException(new LiteralText("Please enter a valid position"));
+                            ci.cancel();
                         }
-                        ci.cancel();
                         break;
                     case "/back":
                         BackCommand.execute();
