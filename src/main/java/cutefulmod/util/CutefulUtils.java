@@ -67,6 +67,7 @@ public class CutefulUtils {
 
     public static Set<BlockPos> simulateExplosion(float raySizeMultiplier, TntEntity tnt,boolean countRaysHittingBlockPos) {
         Set<BlockPos> toExplode = new HashSet<>();
+        double explosionHeight = tnt.getBodyY(0.0625);
         ArrayList<Double> probabilityOfRayBreakingBlock = new ArrayList<>();
         int raysHittingBlockPos = 0;
         for (int i = 0; i < 16; ++i) {
@@ -87,7 +88,7 @@ public class CutefulUtils {
 
                         // first ray test position is at tnt position
                         double x = tnt.getX();
-                        double y = tnt.getY();
+                        double y = explosionHeight;
                         double z = tnt.getZ();
 
                         while (rayStrength > 0.0F) {
