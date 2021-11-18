@@ -15,9 +15,8 @@ public class SpellParticleMixin {
 
     @Inject(method = "createParticle", at = @At("HEAD"), cancellable = true)
     private void removePotionParticleOnEntity(DefaultParticleType defaultParticleType, World world, double d, double e, double f, double g, double h, double i, CallbackInfoReturnable<Particle> cir) {
-        if (Configs.getDisablePotionEffectParticles()) {
+        if (Configs.disablePotionEffectParticles) {
             cir.setReturnValue(null);
         }
     }
-
 }

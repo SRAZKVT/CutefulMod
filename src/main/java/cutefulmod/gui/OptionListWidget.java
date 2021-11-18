@@ -9,8 +9,10 @@ import net.minecraft.client.font.TextRenderer;
 import net.minecraft.client.gui.Element;
 import net.minecraft.client.gui.widget.AbstractButtonWidget;
 import net.minecraft.client.gui.widget.ElementListWidget;
+import net.minecraft.client.options.BooleanOption;
 import net.minecraft.client.options.Option;
 
+import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 
@@ -22,7 +24,7 @@ public class OptionListWidget extends ElementListWidget<OptionListWidget.OptionE
         this.centerListVertically = true;
     }
 
-    public void addAll(Option[] options) {
+    public void addAll(Collection<BooleanOption> options) {
         for (Option option : options) {
             this.addEntry(OptionEntry.create(option));
         }

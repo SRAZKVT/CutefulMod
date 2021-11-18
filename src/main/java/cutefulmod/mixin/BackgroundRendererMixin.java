@@ -12,7 +12,7 @@ import cutefulmod.config.Configs;
 public class BackgroundRendererMixin {
     @Inject(method = "applyFog", at = @At(value = "HEAD"), cancellable = true)
     private static void renderNoFog(Camera camera, BackgroundRenderer.FogType fogType, float viewDistance, boolean thickFog, CallbackInfo ci) {
-        if (Configs.getRenderNoFog()) {
+        if (Configs.renderNoFog) {
             ci.cancel();
         }
     }

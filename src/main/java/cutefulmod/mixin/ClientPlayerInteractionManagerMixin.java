@@ -34,7 +34,7 @@ public abstract class ClientPlayerInteractionManagerMixin {
 	public void onInteractEntity(PlayerEntity player, Entity entity, Hand hand, CallbackInfoReturnable<ActionResult> cir) {
 		if (entity instanceof ItemFrameEntity) {
 			ItemFrameEntity itemFrame = (ItemFrameEntity) entity;
-			if (!player.isSneaking() && (!itemFrame.getHeldItemStack().isEmpty()) && Configs.getBypassItemFrameEntity()) {
+			if (!player.isSneaking() && (!itemFrame.getHeldItemStack().isEmpty()) && Configs.bypassItemFrameEntity) {
 				MinecraftClient client = MinecraftClient.getInstance();
 				BlockPos blockToClick = itemFrame.getBlockPos().offset(itemFrame.getHorizontalFacing().getOpposite());
 				Block hit = itemFrame.getEntityWorld().getBlockState(blockToClick).getBlock();
@@ -47,7 +47,7 @@ public abstract class ClientPlayerInteractionManagerMixin {
 				}
 			}
 		} else if (entity instanceof TntEntity) {
-			if (Configs.getTntRangeVisualizer()) {
+			if (Configs.tntRangeVisualizer) {
 				TntToRender tnt = new TntToRender((TntEntity) entity);
 				if (CutefulRenderController.getTntToRender().contains(tnt)) {
 					CutefulRenderController.getTntToRender().remove(tnt);
@@ -55,7 +55,7 @@ public abstract class ClientPlayerInteractionManagerMixin {
 					CutefulRenderController.getTntToRender().add(tnt);
 				}
 			}
-			if (Configs.getTntRayCount()) {
+			if (Configs.tntRaysCount) {
 				if (Configs.getBlockToCheckRaysOn() != null) {
 					CutefulUtils.simulateExplosion(1, (TntEntity) entity, true);
 				} else {
@@ -63,7 +63,7 @@ public abstract class ClientPlayerInteractionManagerMixin {
 					MinecraftClient.getInstance().player.addChatMessage(new LiteralText("You didn't set a position to check rays for."), false);
 				}
 			}
-			if (Configs.getTntRayCount() || Configs.getTntRangeVisualizer()) {
+			if (Configs.tntRaysCount || Configs.tntRangeVisualizer) {
 				cir.setReturnValue(ActionResult.SUCCESS);
 			}
 		}

@@ -53,7 +53,7 @@ public class ClientPlayNetworkHandlerMixin {
                         }
                         break;
                     case "/raycount":
-                        if (Configs.getTntRayCount()) {
+                        if (Configs.tntRaysCount) {
                             if (words.length > 3) {
                                 BlockPos pos = CutefulUtils.getBlockPosFromStrings(words[1], words[2], words[3]);
                                 if (pos != null) {

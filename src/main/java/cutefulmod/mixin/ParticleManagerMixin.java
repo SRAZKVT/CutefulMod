@@ -13,7 +13,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 public class ParticleManagerMixin {
     @Inject(method = "addBlockBreakParticles", at = @At("HEAD"), cancellable = true)
     private void cancelBreakParticles(BlockPos pos, BlockState state, CallbackInfo ci) {
-        if (Configs.getDisableBlockBreakingParticles()) {
+        if (Configs.disableBlockBreakingParticles) {
             ci.cancel();
         }
     }

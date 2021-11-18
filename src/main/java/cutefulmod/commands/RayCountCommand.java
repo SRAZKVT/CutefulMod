@@ -14,7 +14,7 @@ import static com.mojang.brigadier.builder.RequiredArgumentBuilder.argument;
 
 public class RayCountCommand {
     public static void register(CommandDispatcher<CommandSource> dispatcher) {
-        LiteralArgumentBuilder<CommandSource> command = literal("raycount").requires((c) -> Configs.getTntRayCount()).
+        LiteralArgumentBuilder<CommandSource> command = literal("raycount").requires((c) -> Configs.tntRaysCount).
                 then(argument("block position", BlockPosArgumentType.blockPos())).
                 then(literal("reset"));
         dispatcher.register(command);

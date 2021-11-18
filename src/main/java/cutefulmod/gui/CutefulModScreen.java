@@ -25,13 +25,13 @@ public class CutefulModScreen extends Screen {
     public void init(MinecraftClient client, int width, int height) {
         super.init(client, width, height);
         list = new OptionListWidget(client, width, height, 32, this.height - 32, 25);
-        list.addAll(configs.allBooleanConfigs);
+        list.addAll(configs.allBooleanConfigs.values());
 
 
 
         this.addButton(new ButtonWidget(this.width / 2 - 155 + 160, this.height - 29, 150, 20, "Done", (buttonWidget) -> this.onClose()));
         this.addButton(new ButtonWidget(this.width / 2 - 155, this.height - 29, 150, 20, "Reset config", (buttonWidget) -> {
-            for (BooleanOption config : configs.allBooleanConfigs) {
+            for (BooleanOption config : configs.allBooleanConfigs.values()) {
                 {
                     config.set(configs, "false");
                 }

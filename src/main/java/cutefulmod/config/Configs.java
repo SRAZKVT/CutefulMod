@@ -1,9 +1,5 @@
 package cutefulmod.config;
 
-import java.io.File;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.util.Scanner;
 import cutefulmod.IOption;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.network.ClientPlayerEntity;
@@ -11,6 +7,13 @@ import net.minecraft.client.options.BooleanOption;
 import net.minecraft.client.options.GameOptions;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Vec3d;
+
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.lang.reflect.Field;
+import java.util.LinkedHashMap;
+import java.util.Scanner;
 
 public class Configs extends GameOptions {
     private static BlockPos blockToCheckRaysOn = null;
@@ -20,28 +23,25 @@ public class Configs extends GameOptions {
 
     public static Configs instance;
     private final File configFile = new File(new File(MinecraftClient.getInstance().runDirectory, "config"), "cuteful.txt");
-    public BooleanOption[] allBooleanConfigs;
+    public LinkedHashMap<String, BooleanOption> allBooleanConfigs;
 
-    private boolean bypassItemFrameEntity = false;
-    private boolean renderNoFog = false;
-    private boolean fillCloneBoundingBox = false;
-    private boolean disableBlockBreakingParticles = false;
-    private boolean disablePotionEffectParticles = false;
-    private boolean tntRangeVisualizer = false;
-    private boolean tntRaysCount = false;
+    public static boolean bypassItemFrameEntity = false;
+    public static boolean renderNoFog = false;
+    public static boolean fillCloneBoundingBox = false;
+    public static boolean disableBlockBreakingParticles = false;
+    public static boolean disablePotionEffectParticles = false;
+    public static boolean tntRangeVisualizer = false;
+    public static boolean tntRaysCount = false;
 
     private Configs() throws IOException {
         super(MinecraftClient.getInstance(), new File(new File(MinecraftClient.getInstance().runDirectory, "config"), "cuteful.txt"));
         instance = this;
-        allBooleanConfigs = new BooleanOption[]{
-                Config.DISABLE_FOG,
-                Config.BYPASS_ITEM_FRAME_ENTITY,
-                Config.FILL_CLONE_BOUNDING_BOX,
-                Config.DISABLE_BLOCK_BREAKING_PARTICLES,
-                Config.DISABLE_POTION_EFFECT_PARTICLES,
-                Config.TNT_RANGE_VISUALIZER,
-                Config.TNT_RAY_COUNT
-        };
+        allBooleanConfigs = new LinkedHashMap<>();
+
+        // add all boolean options in Configs to allBooleanConfigs
+        for (Field f : Config.class.getDeclaredFields()) if (f.getType().equals(BooleanOption.class)) {try {allBooleanConfigs.put(((IOption)f.get(null)).getKey(), (BooleanOption) f.get(null));
+        } catch (IllegalAccessException e) {e.printStackTrace();}
+        }
         loadFromFile();
     }
 
@@ -53,11 +53,8 @@ public class Configs extends GameOptions {
                 String line = reader.nextLine();
                 configWord = line.split(" ");
                 if (configWord.length > 1) {
-                    for (BooleanOption option : allBooleanConfigs) {
-                        if (((IOption)option).getKey().equals(configWord[0])) {
-                            option.set(this, configWord[1]);
-                        }
-                    }
+                    BooleanOption option = allBooleanConfigs.get(configWord[0]);
+                    if (option != null) option.set(this, configWord[1]);
                     System.out.println("CutefulMod : Loaded " + configWord[0] + " as " + configWord[1]);
                 } else {
                     System.out.println("CutefulMod : The config file is invalid");
@@ -72,7 +69,7 @@ public class Configs extends GameOptions {
     public void saveToFile() throws IOException {
         configFile.delete();
         FileWriter fw = new FileWriter(configFile);
-        for (BooleanOption config : allBooleanConfigs) {
+        for (BooleanOption config : allBooleanConfigs.values()) {
             fw.write(((IOption)config).getKey() + " " + config.get(this) + "\n");
         }
         fw.close();
@@ -85,51 +82,6 @@ public class Configs extends GameOptions {
             } catch (IOException ignored) {}
         }
         return instance;
-    }
-
-
-
-    public static void setRenderNoFog(boolean value) {
-        Configs.getInstance().renderNoFog = value;
-    }
-    public static boolean getRenderNoFog() {
-        return Configs.getInstance().renderNoFog;
-    }
-    public static void setBypassItemFrameEntity(boolean value) {
-        Configs.getInstance().bypassItemFrameEntity = value;
-    }
-    public static boolean getBypassItemFrameEntity() {
-        return Configs.getInstance().bypassItemFrameEntity;
-    }
-    public static void setFillCloneBoundingBox(boolean value) {
-        Configs.getInstance().fillCloneBoundingBox = value;
-    }
-    public static boolean getFillCloneBoundingBox() {
-        return Configs.getInstance().fillCloneBoundingBox;
-    }
-    public static void setDisableBlockBreakingParticles(boolean value) {
-        Configs.getInstance().disableBlockBreakingParticles = value;
-    }
-    public static boolean getDisableBlockBreakingParticles() {
-        return Configs.getInstance().disableBlockBreakingParticles;
-    }
-    public static void setDisablePotionEffectParticles(boolean value) {
-        Configs.getInstance().disablePotionEffectParticles = value;
-    }
-    public static boolean getDisablePotionEffectParticles() {
-        return Configs.getInstance().disablePotionEffectParticles;
-    }
-    public static void setTntRangeVisualizer(boolean value) {
-        Configs.getInstance().tntRangeVisualizer = value;
-    }
-    public static boolean getTntRangeVisualizer() {
-        return Configs.getInstance().tntRangeVisualizer;
-
-    }public static void setTntRayCount(boolean value) {
-        Configs.getInstance().tntRaysCount = value;
-    }
-    public static boolean getTntRayCount() {
-        return Configs.getInstance().tntRaysCount;
     }
 
     public static Vec3d getLastPos() {
