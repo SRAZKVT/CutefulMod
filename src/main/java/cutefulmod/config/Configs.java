@@ -2,8 +2,12 @@ package cutefulmod.config;
 
 import cutefulmod.IOption;
 import net.minecraft.client.MinecraftClient;
+import net.minecraft.client.network.ClientPlayerEntity;
 import net.minecraft.client.option.CyclingOption;
 import net.minecraft.client.option.GameOptions;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.Vec3d;
+import net.minecraft.world.dimension.DimensionType;
 
 import java.io.File;
 import java.io.FileWriter;
@@ -11,6 +15,11 @@ import java.io.IOException;
 import java.util.Scanner;
 
 public class Configs extends GameOptions {
+    private static BlockPos blockToCheckRaysOn = null;
+
+    private static Vec3d lastPos = null;
+    private static String lastDim = "";
+
     public static Configs instance;
     private final File configFile = new File(new File(MinecraftClient.getInstance().runDirectory, "config"), "cuteful.txt");
     public CyclingOption<Boolean>[] allBooleanConfigs;
@@ -20,6 +29,8 @@ public class Configs extends GameOptions {
     private boolean fillCloneBoundingBox = false;
     private boolean disableBlockBreakingParticles = false;
     private boolean disablePotionEffectParticles = false;
+    private boolean tntRangeVisualizer = false;
+    private boolean tntRaysCount = false;
 
     public Configs() throws IOException {
         super(MinecraftClient.getInstance(), new File(new File(MinecraftClient.getInstance().runDirectory, "config"), "cuteful.txt"));
@@ -29,7 +40,9 @@ public class Configs extends GameOptions {
                 Config.BYPASS_ITEM_FRAME_ENTITY,
                 Config.FILL_CLONE_BOUNDING_BOX,
                 Config.DISABLE_BLOCK_BREAKING_PARTICLES,
-                Config.DISABLE_POTION_EFFECT_PARTICLES
+                Config.DISABLE_POTION_EFFECT_PARTICLES,
+                Config.TNT_RANGE_VISUALIZER,
+                Config.TNT_RAY_COUNT
         };
         loadFromFile();
     }
@@ -58,7 +71,14 @@ public class Configs extends GameOptions {
                         case "disablePotionEffectParticles":
                             disablePotionEffectParticles = (configWord[1].equals("true"));
                             break;
+                        case "tntRangeVisualizer":
+                            tntRangeVisualizer = (configWord[1].equals("true"));
+                            break;
+                        case "tntRaysCount":
+                            tntRaysCount = (configWord[1].equals("true"));
+                            break;
                     }
+
                     System.out.println("CutefulMod : Loaded " + configWord[0] + " as " + configWord[1]);
                 } else {
                     System.out.println("CutefulMod : The config file is invalid");
@@ -91,6 +111,12 @@ public class Configs extends GameOptions {
                     break;
                 case "disablePotionEffectParticles":
                     fw.write(((IOption)config).getKey() + " " + Configs.getDisablePotionEffectParticles() + "\n");
+                    break;
+                case "tntRangeVisualizer":
+                    fw.write(((IOption)config).getKey() + " " + Configs.getTntRangeVisualizer() + "\n");
+                    break;
+                case "tntRaysCount":
+                    fw.write(((IOption)config).getKey() + " " + Configs.getTntRayCount() + "\n");
                     break;
             }
         }
@@ -138,5 +164,54 @@ public class Configs extends GameOptions {
     }
     public static boolean getDisablePotionEffectParticles() {
         return Configs.getInstance().disablePotionEffectParticles;
+    }
+    public static void setTntRangeVisualizer(boolean value) {
+        Configs.getInstance().tntRangeVisualizer = value;
+    }
+    public static boolean getTntRangeVisualizer() {
+        return Configs.getInstance().tntRangeVisualizer;
+    }
+    public static void setTntRayCount(boolean value) {
+        Configs.getInstance().tntRaysCount = value;
+    }
+    public static boolean getTntRayCount() {
+        return Configs.getInstance().tntRaysCount;
+    }
+    public static String getLastDim() {
+        return lastDim;
+    }
+    public static Vec3d getLastPos() {
+        return lastPos;
+    }
+    public static void setLastPos(Vec3d pos) {
+        lastPos = pos;
+    }
+
+    public static void setLastDim (String dim){
+        lastDim = dim;
+    }
+
+    public static void updateLastPosDim() {
+        ClientPlayerEntity player = MinecraftClient.getInstance().player;
+        assert player != null;
+        setLastPos(player.getPos());
+        DimensionType dimId = player.clientWorld.getDimension();
+        String dimName = "";
+        if (dimId.isBedWorking()) {
+            dimName = "overworld";
+        } else if (!dimId.isBedWorking() && dimId.isRespawnAnchorWorking()) {
+            dimName = "the_nether";
+        } else if (!dimId.isBedWorking() && dimId.hasEnderDragonFight()) {
+            dimName = "the_end";
+        }
+        setLastDim(dimName);
+    }
+
+    public static BlockPos getBlockToCheckRaysOn() {
+        return blockToCheckRaysOn;
+    }
+
+    public static void setBlockToCheckRaysOn(BlockPos blockToCheckRaysOn) {
+        Configs.blockToCheckRaysOn = blockToCheckRaysOn;
     }
 }

@@ -12,6 +12,8 @@ public abstract class Config extends Option {
     public static final CyclingOption<Boolean> FILL_CLONE_BOUNDING_BOX;
     public static final CyclingOption<Boolean>  DISABLE_BLOCK_BREAKING_PARTICLES;
     public static final CyclingOption<Boolean>  DISABLE_POTION_EFFECT_PARTICLES;
+    public static final CyclingOption TNT_RANGE_VISUALIZER;
+    public static final CyclingOption TNT_RAY_COUNT;
 
     static {
         DISABLE_FOG =  CyclingOption.create("renderNoFog",
@@ -36,6 +38,14 @@ public abstract class Config extends Option {
         DISABLE_POTION_EFFECT_PARTICLES =  CyclingOption.create("disablePotionEffectParticles",
                 config -> Configs.getDisablePotionEffectParticles(),
                 (gameOptions,config, disablePotionEffectParticles) -> Configs.setDisablePotionEffectParticles(disablePotionEffectParticles)
+        );
+        TNT_RANGE_VISUALIZER = CyclingOption.create("tntRangeVisualizer",
+                config -> Configs.getTntRangeVisualizer(),
+                (gameOptions,config, tntRangeVisualizer) -> Configs.setTntRangeVisualizer(tntRangeVisualizer)
+        );
+        TNT_RAY_COUNT = CyclingOption.create("tntRayCount",
+                config -> Configs.getTntRayCount(),
+                (gameOptions,config, tntRayCount) -> Configs.setTntRayCount(tntRayCount)
         );
     }
 

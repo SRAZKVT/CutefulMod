@@ -3,16 +3,42 @@ package cutefulmod.render;
 import cutefulmod.IChatScreen;
 import cutefulmod.config.Configs;
 import cutefulmod.utils.CutefulUtils;
+import cutefulmod.utils.TntToRender;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.screen.ChatScreen;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.util.math.BlockPos;
 
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.Iterator;
+
 public class CutefulRenderController {
+    private static ArrayList<TntToRender> tntToRender;
+    private static CutefulRenderController instance;
+
+    private CutefulRenderController() {
+        tntToRender = new ArrayList<>();
+        instance = this;
+    }
+
+    public static CutefulRenderController getInstance() {
+        if (instance == null) {
+            instance = new CutefulRenderController();
+        }
+        return instance;
+    }
+
+
+    public static ArrayList<TntToRender> getTntToRender() {
+        return tntToRender;
+    }
+
+
     public static void render(MatrixStack matrices) {
         renderFillCloneBoundingBox(matrices);
-        //renderTntExplosionRange(matrices);
+        renderTntExplosionRange(matrices);
     }
     private static void renderFillCloneBoundingBox(MatrixStack matrices) {
         Screen currentScreen = MinecraftClient.getInstance().currentScreen;
@@ -43,6 +69,24 @@ public class CutefulRenderController {
                 pos = CutefulUtils.getBlockPosFromStrings(args[1], args[2], args[3]);
                 if (pos != null) {
                     CutefulRenderUtils.drawBoxWithOutline(matrices, pos, pos, 1, 1, 1, 0.4F, 0, 0, 0);
+                }
+            }
+        }
+    }
+    private static void renderTntExplosionRange(MatrixStack matrices) {
+        if (Configs.getTntRangeVisualizer()) {
+            Iterator<TntToRender> itr = tntToRender.iterator();
+            while (itr.hasNext()) {
+                TntToRender tntObjectToRender = itr.next();
+                if (tntObjectToRender.tnt.getFuse() != tntObjectToRender.lastTimer) {
+                    tntObjectToRender.minimumExplosion = (HashSet<BlockPos>) CutefulUtils.simulateExplosion(0, tntObjectToRender.tnt);
+                    tntObjectToRender.maximumExplosion = (HashSet<BlockPos>) CutefulUtils.simulateExplosion(1, tntObjectToRender.tnt);
+                }
+                CutefulRenderUtils.drawFacesOfBlocksInHashset(matrices, tntObjectToRender.minimumExplosion, 117, 243, 236, 0.3F);
+                CutefulRenderUtils.drawFacesOfBlocksInHashset(matrices, tntObjectToRender.maximumExplosion, 238, 72, 72, 0.3F);
+
+                if (tntObjectToRender.tnt.isRemoved()) {
+                    itr.remove();
                 }
             }
         }

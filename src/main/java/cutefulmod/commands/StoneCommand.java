@@ -10,7 +10,7 @@ public class StoneCommand {
         dispatcher.register(CommandManager.literal("stone").executes((commandContext) -> execute()));
     }
 
-    private static int execute() {
+    public static int execute() {
         assert MinecraftClient.getInstance().player != null;
         MinecraftClient.getInstance().player.sendChatMessage("/setblock ~ ~-1 ~ stone");
         return 1;
