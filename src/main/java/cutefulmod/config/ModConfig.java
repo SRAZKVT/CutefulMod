@@ -2,7 +2,6 @@ package cutefulmod.config;
 
 import me.shedaniel.autoconfig.ConfigData;
 import me.shedaniel.autoconfig.annotation.Config;
-import net.minecraft.client.option.CyclingOption;
 
 @Config(name = "cutefulmod")
 public class ModConfig implements ConfigData {
