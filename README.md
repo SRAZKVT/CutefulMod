@@ -10,4 +10,8 @@ A very cute mod.
 
 ## Tweak Options :
 
-`bypassItemFrameEntity` - Allows player to click through an item frame, for exemple to access a chest, furnace, etc. Can be negated by sneaking.
+`bypassItemFrameEntity` - Allows player to click through an item frame, for exemple to access a chest, furnace, etc. Can be negated by sneaking.   
+
+## Dependencies needed to run the mod   
+`clothconfig` - Required.   
+`modmenu` - Optional
