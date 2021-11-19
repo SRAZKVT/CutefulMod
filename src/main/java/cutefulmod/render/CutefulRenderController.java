@@ -1,7 +1,7 @@
 package cutefulmod.render;
 
+import cutefulmod.CutefulMod;
 import cutefulmod.IChatScreen;
-import cutefulmod.config.Configs;
 import cutefulmod.utils.CutefulUtils;
 import cutefulmod.utils.TntToRender;
 import net.minecraft.client.MinecraftClient;
@@ -42,7 +42,7 @@ public class CutefulRenderController {
     }
     private static void renderFillCloneBoundingBox(MatrixStack matrices) {
         Screen currentScreen = MinecraftClient.getInstance().currentScreen;
-        if (currentScreen instanceof ChatScreen && !((IChatScreen)currentScreen).getMessage().equals("") && Configs.getFillCloneBoundingBox()) {
+        if (currentScreen instanceof ChatScreen && !((IChatScreen)currentScreen).getMessage().equals("") && CutefulMod.config.FILL_CLONE_BOUNDING_BOX) {
             String[] args = ((IChatScreen) currentScreen).getMessage().split(" ");
             if ((args[0].equals("/fill") || args[0].equals("/clone")) && args.length >= 7) {
                 BlockPos pos1;
@@ -74,7 +74,7 @@ public class CutefulRenderController {
         }
     }
     private static void renderTntExplosionRange(MatrixStack matrices) {
-        if (Configs.getTntRangeVisualizer()) {
+        if (CutefulMod.config.TNT_RANGE_VISUALIZER) {
             Iterator<TntToRender> itr = tntToRender.iterator();
             while (itr.hasNext()) {
                 TntToRender tntObjectToRender = itr.next();

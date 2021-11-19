@@ -4,7 +4,7 @@ import com.mojang.brigadier.CommandDispatcher;
 import cutefulmod.commands.BackCommand;
 import cutefulmod.commands.RayCountCommand;
 import cutefulmod.commands.StoneCommand;
-import cutefulmod.config.Configs;
+import cutefulmod.utils.CommandUtils;
 import cutefulmod.utils.CutefulUtils;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.network.ClientPlayNetworkHandler;
@@ -42,12 +42,12 @@ public class ClientPlayNetworkHandlerMixin {
             try {
                 switch (words[0]) {
                     case "/tp":
-                        Configs.updateLastPosDim();
+                        CommandUtils.updateLastPosDim();
                         break;
                     case "/execute":
                         for (int i = 1; i < words.length - 2; i++) {
                             if (words[i].equals("run") && words[i + 1].equals("tp")) {
-                                Configs.updateLastPosDim();
+                                CommandUtils.updateLastPosDim();
                                 break;
                             }
                         }

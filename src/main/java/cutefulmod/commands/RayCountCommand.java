@@ -3,7 +3,7 @@ package cutefulmod.commands;
 import com.mojang.brigadier.CommandDispatcher;
 import com.mojang.brigadier.builder.LiteralArgumentBuilder;
 import com.mojang.brigadier.builder.RequiredArgumentBuilder;
-import cutefulmod.config.Configs;
+import cutefulmod.utils.CommandUtils;
 import cutefulmod.utils.CutefulUtils;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.command.argument.BlockPosArgumentType;
@@ -23,7 +23,7 @@ public class RayCountCommand {
     }
 
     public static int execute(BlockPos pos) {
-        Configs.setBlockToCheckRaysOn(pos);
+        CommandUtils.setBlockToCheckRaysOn(pos);
         assert MinecraftClient.getInstance().player != null;
         MinecraftClient.getInstance().player.sendChatMessage("Succesfully set check position at " + CutefulUtils.cutePositionFromPos(pos));
         return 1;

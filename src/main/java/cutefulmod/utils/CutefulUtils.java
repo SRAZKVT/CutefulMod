@@ -1,6 +1,5 @@
 package cutefulmod.utils;
 
-import cutefulmod.config.Configs;
 import net.minecraft.block.BlockState;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.entity.TntEntity;
@@ -101,7 +100,7 @@ public class CutefulUtils {
                             // if ray goes through block then it is added to the list of blocks to explode
                             if (rayStrength > 0.0F) {
                                 toExplode.add(blockPos);
-                                if (countRaysHittingBlockPos && blockPos.equals(Configs.getBlockToCheckRaysOn())) {
+                                if (countRaysHittingBlockPos && blockPos.equals(CommandUtils.getBlockToCheckRaysOn())) {
                                     raysHittingBlockPos++;
 
                                     // unwrap ray strength to get min nextFloat value that would break block
@@ -135,7 +134,7 @@ public class CutefulUtils {
         }
         if (countRaysHittingBlockPos) {
             assert MinecraftClient.getInstance().player != null;
-            MinecraftClient.getInstance().player.sendChatMessage("The block pos at " + cutePositionFromPos(Configs.getBlockToCheckRaysOn()) + " has been struck by " + raysHittingBlockPos + " rays.");
+            MinecraftClient.getInstance().player.sendChatMessage("The block pos at " + cutePositionFromPos(CommandUtils.getBlockToCheckRaysOn()) + " has been struck by " + raysHittingBlockPos + " rays.");
             double probabilityOfBlockBeingBlownUp = 1D;
             if (!probabilityOfRayBreakingBlock.contains(1D)) {
                 for (double probabilityOfRay : probabilityOfRayBreakingBlock) {

@@ -1,6 +1,7 @@
 package cutefulmod.mixin;
 
-import cutefulmod.config.Configs;
+import cutefulmod.CutefulMod;
+import cutefulmod.utils.CommandUtils;
 import cutefulmod.render.CutefulRenderController;
 import cutefulmod.utils.CutefulUtils;
 import cutefulmod.utils.TntToRender;
@@ -33,7 +34,7 @@ public abstract class ClientPlayerInteractionManagerMixin {
 	public void bypassItemFrame(PlayerEntity player, Entity entity, Hand hand, CallbackInfoReturnable<ActionResult> cir) {
 		if (entity instanceof ItemFrameEntity) {
 			ItemFrameEntity itemFrame = (ItemFrameEntity) entity;
-			if (!player.isSneaking() && (!itemFrame.getHeldItemStack().isEmpty()) && Configs.getBypassItemFrameEntity()) {
+			if (!player.isSneaking() && (!itemFrame.getHeldItemStack().isEmpty()) && CutefulMod.config.BYPASS_ITEM_FRAME_ENTITY) {
 				MinecraftClient client = MinecraftClient.getInstance();
 				BlockPos blockToClick = itemFrame.getBlockPos().offset(itemFrame.getHorizontalFacing().getOpposite());
 				Block hit = itemFrame.getEntityWorld().getBlockState(blockToClick).getBlock();
@@ -46,7 +47,7 @@ public abstract class ClientPlayerInteractionManagerMixin {
 				}
 			}
 		}else if (entity instanceof TntEntity) {
-			if (Configs.getTntRangeVisualizer()) {
+			if (CutefulMod.config.TNT_RANGE_VISUALIZER) {
 				TntToRender tnt = new TntToRender((TntEntity) entity);
 				if (CutefulRenderController.getTntToRender().contains(tnt)) {
 					CutefulRenderController.getTntToRender().remove(tnt);
@@ -54,15 +55,15 @@ public abstract class ClientPlayerInteractionManagerMixin {
 					CutefulRenderController.getTntToRender().add(tnt);
 				}
 			}
-			if (Configs.getTntRayCount()) {
-				if (Configs.getBlockToCheckRaysOn() != null) {
+			if (CutefulMod.config.TNT_RAY_COUNT) {
+				if (CommandUtils.getBlockToCheckRaysOn() != null) {
 					CutefulUtils.simulateExplosion(1, (TntEntity) entity, true);
 				} else {
 					assert MinecraftClient.getInstance().player != null;
 					MinecraftClient.getInstance().player.sendChatMessage("You didn't set a position to check rays for.");
 				}
 			}
-			if (Configs.getTntRayCount() || Configs.getTntRangeVisualizer()) {
+			if (CutefulMod.config.TNT_RAY_COUNT || CutefulMod.config.TNT_RANGE_VISUALIZER) {
 				cir.setReturnValue(ActionResult.SUCCESS);
 			}
 		}

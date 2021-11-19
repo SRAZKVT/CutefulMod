@@ -2,7 +2,7 @@ package cutefulmod.commands;
 
 import com.mojang.brigadier.CommandDispatcher;
 import com.mojang.brigadier.builder.LiteralArgumentBuilder;
-import cutefulmod.config.Configs;
+import cutefulmod.utils.CommandUtils;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.command.CommandException;
 import net.minecraft.server.command.ServerCommandSource;
@@ -16,13 +16,13 @@ public class BackCommand {
     }
 
     public static int execute() {
-        Vec3d lastPos = Configs.getLastPos();
+        Vec3d lastPos = CommandUtils.getLastPos();
         MinecraftClient mc = MinecraftClient.getInstance();
         assert mc.player != null;
         if (lastPos != null) {
-            mc.player.sendChatMessage("/execute in minecraft:" + Configs.getLastDim() + " run tp " + lastPos.x + " " + lastPos.y + " " + lastPos.z);
-            Configs.setLastDim("");
-            Configs.setLastPos(null);
+            mc.player.sendChatMessage("/execute in minecraft:" + CommandUtils.getLastDim() + " run tp " + lastPos.x + " " + lastPos.y + " " + lastPos.z);
+            CommandUtils.setLastDim("");
+            CommandUtils.setLastPos(null);
             return 1;
         } else {
             throw new CommandException(new LiteralText("There is no position to go back to"));

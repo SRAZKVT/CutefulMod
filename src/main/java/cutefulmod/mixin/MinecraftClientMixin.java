@@ -1,7 +1,8 @@
 package cutefulmod.mixin;
 
 import cutefulmod.IGameOptions;
-import cutefulmod.gui.CutefulModScreen;
+import cutefulmod.config.ModConfig;
+import me.shedaniel.autoconfig.AutoConfig;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.option.GameOptions;
@@ -33,7 +34,7 @@ public abstract class MinecraftClientMixin {
     )
     private void handleCutefulModMenuKeybind(CallbackInfo ci) {
         while (((IGameOptions) options).getCutefulModMenu().wasPressed()) {
-            setScreen(new CutefulModScreen(this.currentScreen));
+            setScreen(AutoConfig.getConfigScreen(ModConfig.class, this.currentScreen).get());
         }
     }
 }

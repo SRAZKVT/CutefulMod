@@ -1,6 +1,6 @@
 package cutefulmod.mixin;
 
-import cutefulmod.config.Configs;
+import cutefulmod.CutefulMod;
 import net.minecraft.client.particle.Particle;
 import net.minecraft.client.particle.SpellParticle;
 import net.minecraft.client.world.ClientWorld;
@@ -15,7 +15,7 @@ public class SpellParticleMixin {
 
     @Inject(method = "createParticle", at = @At("HEAD"), cancellable = true)
     private void removePotionParticleOnEntity(DefaultParticleType defaultParticleType, ClientWorld clientWorld, double d, double e, double f, double g, double h, double i, CallbackInfoReturnable<Particle> cir) {
-        if (Configs.getDisablePotionEffectParticles()) {
+        if (CutefulMod.config.DISABLE_POTION_EFFECT_PARTICLES) {
             cir.setReturnValue(null);
         }
     }
