@@ -1,0 +1,10 @@
+{
+  "text.autoconfig.cutefulmod.title": "CutefulMod Options",
+  "text.autoconfig.cutefulmod.option.DISABLE_FOG": "renderNoFog",
+  "text.autoconfig.cutefulmod.option.BYPASS_ITEM_FRAME_ENTITY": "bypassItemFrameEntity",
+  "text.autoconfig.cutefulmod.option.FILL_CLONE_BOUNDING_BOX": "fillCloneBoundingBox",
+  "text.autoconfig.cutefulmod.option.DISABLE_BLOCK_BREAKING_PARTICLES": "disableBlockBreakingParticles",
+  "text.autoconfig.cutefulmod.option.DISABLE_POTION_EFFECT_PARTICLES": "disablePotionEffectParticles",
+  "text.autoconfig.cutefulmod.option.TNT_RANGE_VISUALIZER": "tntRangeVisualizer",
+  "text.autoconfig.cutefulmod.option.TNT_RAY_COUNT": "tntRayCount"
+}
