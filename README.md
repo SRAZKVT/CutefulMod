@@ -13,5 +13,5 @@ A very cute mod.
 `bypassItemFrameEntity` - Allows player to click through an item frame, for exemple to access a chest, furnace, etc. Can be negated by sneaking.   
 
 ## Dependencies needed to run the mod   
-`clothconfig` - Required.   
-`modmenu` - Optional
+`clothconfig` - Required (CurseForge: https://www.curseforge.com/minecraft/mc-mods/cloth-config | Github: https://github.com/shedaniel/cloth-config)     
+`modmenu` - Optional (CurseForge: https://www.curseforge.com/minecraft/mc-mods/modmenu | Github: https://github.com/TerraformersMC/ModMenu) 
