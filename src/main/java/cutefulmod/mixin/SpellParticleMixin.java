@@ -13,7 +13,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 @Mixin(SpellParticle.EntityFactory.class)
 public class SpellParticleMixin {
 
-    @Inject(method = "createParticle", at = @At("HEAD"), cancellable = true)
+    @Inject(method = "createParticle(Lnet/minecraft/particle/DefaultParticleType;Lnet/minecraft/client/world/ClientWorld;DDDDDD)Lnet/minecraft/client/particle/Particle;", at = @At("HEAD"), cancellable = true)
     private void removePotionParticleOnEntity(DefaultParticleType defaultParticleType, ClientWorld clientWorld, double d, double e, double f, double g, double h, double i, CallbackInfoReturnable<Particle> cir) {
         if (CutefulMod.config.DISABLE_POTION_EFFECT_PARTICLES) {
             cir.setReturnValue(null);

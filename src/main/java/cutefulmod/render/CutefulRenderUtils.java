@@ -24,7 +24,8 @@ public class CutefulRenderUtils {
         matrices.push();
         matrices.translate(posOrigin.getX() - cameraPos.getX(), posOrigin.getY() - cameraPos.getY(), posOrigin.getZ() - cameraPos.getZ());
 
-        Matrix4f model = matrices.peek().getModel();
+        //Matrix4f model = matrices.peek().getModel();
+        Matrix4f model = matrices.peek().getPositionMatrix();
 
         RenderSystem.enableBlend();
         RenderSystem.defaultBlendFunc();
@@ -137,7 +138,7 @@ public class CutefulRenderUtils {
         matrices.push();
         matrices.translate(posOrigin.getX() - cameraPos.getX(), posOrigin.getY() - cameraPos.getY(), posOrigin.getZ() - cameraPos.getZ());
 
-        Matrix4f model = matrices.peek().getModel();
+        Matrix4f model = matrices.peek().getPositionMatrix(); //.getModel();
 
         RenderSystem.enableBlend();
         RenderSystem.defaultBlendFunc();
