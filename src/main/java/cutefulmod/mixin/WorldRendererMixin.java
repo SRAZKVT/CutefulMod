@@ -22,7 +22,7 @@ public abstract class WorldRendererMixin {
             at = @At(
                     value = "INVOKE",
                     shift = At.Shift.BEFORE,
-                    target = "net/minecraft/client/option/GameOptions.getViewDistance()I"
+                    target = "Lnet/minecraft/client/render/BackgroundRenderer;clearFog()V"
             )
     )
     private void onRenderInjectBeforeRenderParticles(MatrixStack matrices, float tickDelta, long limitTime, boolean renderBlockOutline, Camera camera, GameRenderer gameRenderer, LightmapTextureManager lightmapTextureManager, Matrix4f matrix4f, CallbackInfo ci) {
