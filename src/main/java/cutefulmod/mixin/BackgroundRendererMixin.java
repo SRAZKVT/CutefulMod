@@ -14,8 +14,8 @@ public class BackgroundRendererMixin {
     @Inject(method = "applyFog", at = @At(value = "HEAD"), cancellable = true)
     private static void renderNoFog(Camera camera, BackgroundRenderer.FogType fogType, float viewDistance, boolean thickFog, CallbackInfo ci) {
         if (CutefulMod.config.DISABLE_FOG) {
-            RenderSystem.setShaderFogStart(viewDistance + 5);
-            RenderSystem.setShaderFogEnd(viewDistance + 10);
+            RenderSystem.setShaderFogStart(viewDistance * viewDistance);
+            RenderSystem.setShaderFogEnd(viewDistance * viewDistance + 1);
             ci.cancel();
         }
     }
