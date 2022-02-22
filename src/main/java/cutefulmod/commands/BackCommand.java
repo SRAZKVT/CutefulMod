@@ -20,7 +20,7 @@ public class BackCommand {
         MinecraftClient mc = MinecraftClient.getInstance();
         assert mc.player != null;
         if (lastPos != null) {
-            mc.player.sendChatMessage("/execute in minecraft:" + CommandUtils.getLastDim() + " run tp " + lastPos.x + " " + lastPos.y + " " + lastPos.z);
+            mc.player.sendMessage(new LiteralText("/execute in minecraft:" + CommandUtils.getLastDim() + " run tp " + lastPos.x + " " + lastPos.y + " " + lastPos.z), false);
             CommandUtils.setLastDim("");
             CommandUtils.setLastPos(null);
             return 1;

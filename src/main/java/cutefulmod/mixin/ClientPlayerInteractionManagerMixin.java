@@ -14,6 +14,7 @@ import net.minecraft.entity.Entity;
 import net.minecraft.entity.TntEntity;
 import net.minecraft.entity.decoration.ItemFrameEntity;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.text.LiteralText;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
 import net.minecraft.util.hit.BlockHitResult;
@@ -60,7 +61,7 @@ public abstract class ClientPlayerInteractionManagerMixin {
 					CutefulUtils.simulateExplosion(1, (TntEntity) entity, true);
 				} else {
 					assert MinecraftClient.getInstance().player != null;
-					MinecraftClient.getInstance().player.sendChatMessage("You didn't set a position to check rays for.");
+					MinecraftClient.getInstance().player.sendMessage(new LiteralText("You didn't set a position to check rays for."),false);
 				}
 			}
 			if (CutefulMod.config.TNT_RAY_COUNT || CutefulMod.config.TNT_RANGE_VISUALIZER) {
