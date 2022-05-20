@@ -14,7 +14,7 @@ import net.minecraft.entity.Entity;
 import net.minecraft.entity.TntEntity;
 import net.minecraft.entity.decoration.ItemFrameEntity;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.text.LiteralText;
+import net.minecraft.text.Text;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
 import net.minecraft.util.hit.BlockHitResult;
@@ -28,8 +28,10 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 @Mixin(ClientPlayerInteractionManager.class)
 public abstract class ClientPlayerInteractionManagerMixin {
 
-	@Shadow public abstract ActionResult interactBlock(ClientPlayerEntity player, ClientWorld world, Hand hand, BlockHitResult hitResult);
+	//@Shadow public abstract ActionResult interactBlock(ClientPlayerEntity player, ClientWorld world, Hand hand, BlockHitResult hitResult);
 	@Shadow public abstract float getReachDistance();
+
+	@Shadow public abstract ActionResult interactBlock(ClientPlayerEntity player, Hand hand, BlockHitResult hitResult);
 
 	@Inject(at = @At("HEAD"), method = "interactEntity", cancellable = true)
 	public void bypassItemFrame(PlayerEntity player, Entity entity, Hand hand, CallbackInfoReturnable<ActionResult> cir) {
@@ -42,7 +44,7 @@ public abstract class ClientPlayerInteractionManagerMixin {
 				if (canBeClicked(hit)) {
 					BlockHitResult hitResult = (BlockHitResult) player.raycast(getReachDistance(), 1, false);
 					if (hitResult.getBlockPos().equals(blockToClick)) {
-						ActionResult actionResult = interactBlock(client.player, client.world, hand, hitResult);
+						ActionResult actionResult = interactBlock(client.player, hand, hitResult);
 						cir.setReturnValue(actionResult);
 					}
 				}
@@ -61,7 +63,7 @@ public abstract class ClientPlayerInteractionManagerMixin {
 					CutefulUtils.simulateExplosion(1, (TntEntity) entity, true);
 				} else {
 					assert MinecraftClient.getInstance().player != null;
-					MinecraftClient.getInstance().player.sendMessage(new LiteralText("You didn't set a position to check rays for."),false);
+					MinecraftClient.getInstance().player.sendMessage(Text.literal("You didn't set a position to check rays for."),false);
 				}
 			}
 			if (CutefulMod.config.TNT_RAY_COUNT || CutefulMod.config.TNT_RANGE_VISUALIZER) {

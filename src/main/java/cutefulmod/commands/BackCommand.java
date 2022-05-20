@@ -6,7 +6,7 @@ import cutefulmod.utils.CommandUtils;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.command.CommandException;
 import net.minecraft.server.command.ServerCommandSource;
-import net.minecraft.text.LiteralText;
+import net.minecraft.text.Text;
 import net.minecraft.util.math.Vec3d;
 
 public class BackCommand {
@@ -20,12 +20,12 @@ public class BackCommand {
         MinecraftClient mc = MinecraftClient.getInstance();
         assert mc.player != null;
         if (lastPos != null) {
-            mc.player.sendMessage(new LiteralText("/execute in minecraft:" + CommandUtils.getLastDim() + " run tp " + lastPos.x + " " + lastPos.y + " " + lastPos.z), false);
+            mc.player.sendMessage( Text.literal("/execute in minecraft:" + CommandUtils.getLastDim() + " run tp " + lastPos.x + " " + lastPos.y + " " + lastPos.z), false);
             CommandUtils.setLastDim("");
             CommandUtils.setLastPos(null);
             return 1;
         } else {
-            throw new CommandException(new LiteralText("There is no position to go back to"));
+            throw new CommandException(Text.literal("There is no position to go back to"));
         }
     }
 }

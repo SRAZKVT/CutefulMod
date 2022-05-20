@@ -1,13 +1,13 @@
 package cutefulmod.mixin;
 
 import cutefulmod.IOption;
-import net.minecraft.client.option.Option;
+import net.minecraft.client.option.GameOptions;
 import net.minecraft.text.Text;
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 
-@Mixin(Option.class)
+/*@Mixin(GameOptions.class)
 public class OptionMixin implements IOption {
 
     @Final
@@ -17,4 +17,4 @@ public class OptionMixin implements IOption {
     public String getKey() {
         return key.getString();
     }
-}
+}*/

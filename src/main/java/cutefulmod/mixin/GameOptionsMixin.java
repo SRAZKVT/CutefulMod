@@ -17,7 +17,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 public class GameOptionsMixin implements IGameOptions {
 
     @Shadow @Final @Mutable
-    public KeyBinding[] keysAll;
+    public KeyBinding[] allKeys;
 
     public KeyBinding keyCutefulModMenu;
 
@@ -29,7 +29,7 @@ public class GameOptionsMixin implements IGameOptions {
     )
     private void onLoadInjectAtHead(CallbackInfo ci) {
         keyCutefulModMenu = new KeyBinding("Open CutefulMod's menu", GLFW.GLFW_KEY_F7, "CutefulMod");
-        keysAll = ArrayUtils.add(keysAll, keyCutefulModMenu);
+        allKeys = ArrayUtils.add(allKeys, keyCutefulModMenu);
     }
 
     @Override

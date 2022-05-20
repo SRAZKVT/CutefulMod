@@ -13,7 +13,7 @@ import net.minecraft.network.Packet;
 import net.minecraft.network.packet.c2s.play.ChatMessageC2SPacket;
 import net.minecraft.network.packet.s2c.play.CommandTreeS2CPacket;
 import net.minecraft.server.command.ServerCommandSource;
-import net.minecraft.text.LiteralText;
+import net.minecraft.text.Text;
 import net.minecraft.util.Formatting;
 import net.minecraft.util.math.BlockPos;
 import org.spongepowered.asm.mixin.Mixin;
@@ -58,10 +58,10 @@ public class ClientPlayNetworkHandlerMixin {
                             if (pos != null) {
                                 RayCountCommand.execute(pos);
                             }else {
-                                throw new CommandException(new LiteralText("Please enter a valid position"));
+                                throw new CommandException(Text.literal("Please enter a valid position"));
                             }
                         } else {
-                            throw new CommandException(new LiteralText("Please enter a valid position"));
+                            throw new CommandException(Text.literal("Please enter a valid position"));
                         }
                         ci.cancel();
                         break;
@@ -77,7 +77,7 @@ public class ClientPlayNetworkHandlerMixin {
             } catch (CommandException e) {
                 String error = e.getMessage();
                 assert this.client.player != null;
-                this.client.player.sendMessage(new LiteralText("").append(error).formatted(Formatting.RED),false);
+                this.client.player.sendMessage(Text.literal("").append(error).formatted(Formatting.RED),false);
                 ci.cancel();
             }
         }

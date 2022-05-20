@@ -12,7 +12,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 @Mixin(BackgroundRenderer.class)
 public class BackgroundRendererMixin {
     @Inject(method = "applyFog", at = @At(value = "HEAD"), cancellable = true)
-    private static void renderNoFog(Camera camera, BackgroundRenderer.FogType fogType, float viewDistance, boolean thickFog, CallbackInfo ci) {
+    private static void renderNoFog(Camera camera, BackgroundRenderer.FogType fogType, float viewDistance, boolean thickFog, float tickDelta, CallbackInfo ci) {
         if (CutefulMod.config.DISABLE_FOG) {
             RenderSystem.setShaderFogStart(viewDistance * viewDistance);
             RenderSystem.setShaderFogEnd(viewDistance * viewDistance + 1);

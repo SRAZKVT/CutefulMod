@@ -13,7 +13,6 @@
     "ParticleManagerMixin",
     "SpellParticleMixin",
     "WorldRendererMixin",
-    "OptionMixin",
     "CommandManagerMixin",
     "ClientPlayNetworkHandlerMixin"
   ],
