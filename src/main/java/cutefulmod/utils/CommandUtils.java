@@ -32,11 +32,11 @@ public class CommandUtils {
         setLastPos(player.getPos());
         DimensionType dimId = player.clientWorld.getDimension();
         String dimName = "";
-        if (dimId.isBedWorking()) {
+        if (dimId.bedWorks()) {
             dimName = "overworld";
-        } else if (!dimId.isBedWorking() && dimId.isRespawnAnchorWorking()) {
+        } else if (dimId.respawnAnchorWorks()) {
             dimName = "the_nether";
-        } else if (!dimId.isBedWorking() && dimId.hasEnderDragonFight()) {
+        } else{
             dimName = "the_end";
         }
         setLastDim(dimName);
