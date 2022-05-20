@@ -4,7 +4,7 @@ import net.minecraft.block.BlockState;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.entity.TntEntity;
 import net.minecraft.fluid.FluidState;
-import net.minecraft.text.LiteralText;
+import net.minecraft.text.Text;
 import net.minecraft.util.math.BlockPos;
 
 import java.util.ArrayList;
@@ -135,7 +135,7 @@ public class CutefulUtils {
         }
         if (countRaysHittingBlockPos) {
             assert MinecraftClient.getInstance().player != null;
-            MinecraftClient.getInstance().player.sendMessage(new LiteralText("The block pos at " + cutePositionFromPos(CommandUtils.getBlockToCheckRaysOn()) + " has been struck by " + raysHittingBlockPos + " rays."), false);
+            MinecraftClient.getInstance().player.sendMessage(Text.literal("The block pos at " + cutePositionFromPos(CommandUtils.getBlockToCheckRaysOn()) + " has been struck by " + raysHittingBlockPos + " rays."), false);
             double probabilityOfBlockBeingBlownUp = 1D;
             if (!probabilityOfRayBreakingBlock.contains(1D)) {
                 for (double probabilityOfRay : probabilityOfRayBreakingBlock) {
@@ -144,7 +144,7 @@ public class CutefulUtils {
                 }
                 probabilityOfBlockBeingBlownUp = 1D - probabilityOfBlockBeingBlownUp;
             }
-            MinecraftClient.getInstance().player.sendMessage(new LiteralText("The probability of the block being blown up is " + probabilityOfBlockBeingBlownUp + " or " + probabilityOfBlockBeingBlownUp * 100 + "%."),false);
+            MinecraftClient.getInstance().player.sendMessage(Text.literal("The probability of the block being blown up is " + probabilityOfBlockBeingBlownUp + " or " + probabilityOfBlockBeingBlownUp * 100 + "%."),false);
         }
         return toExplode;
     }

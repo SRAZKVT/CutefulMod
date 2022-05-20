@@ -8,7 +8,7 @@ import cutefulmod.utils.CutefulUtils;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.command.argument.BlockPosArgumentType;
 import net.minecraft.server.command.ServerCommandSource;
-import net.minecraft.text.LiteralText;
+import net.minecraft.text.Text;
 import net.minecraft.util.math.BlockPos;
 
 public class RayCountCommand {
@@ -26,7 +26,7 @@ public class RayCountCommand {
     public static int execute(BlockPos pos) {
         CommandUtils.setBlockToCheckRaysOn(pos);
         assert MinecraftClient.getInstance().player != null;
-        MinecraftClient.getInstance().player.sendMessage(new LiteralText("Succesfully set check position at " + CutefulUtils.cutePositionFromPos(pos)),false);
+        MinecraftClient.getInstance().player.sendMessage(Text.literal("Succesfully set check position at " + CutefulUtils.cutePositionFromPos(pos)),false);
         return 1;
     }
 }
