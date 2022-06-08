@@ -1,5 +1,5 @@
 # CutefulMod
-A very cute mod.
+A very cute mod
 
 ## Render Options :
 
