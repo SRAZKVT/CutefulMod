@@ -27,9 +27,9 @@ public class CutefulRenderUtils {
         //Matrix4f model = matrices.peek().getModel();
         Matrix4f model = matrices.peek().getPositionMatrix();
 
+        RenderSystem.setShader(GameRenderer::getPositionColorProgram);
         RenderSystem.enableBlend();
         RenderSystem.defaultBlendFunc();
-        //  RenderSystem.disableTexture();
         RenderSystem.depthMask(false);
 
         bufferBuilder.begin(VertexFormat.DrawMode.DEBUG_LINES, VertexFormats.POSITION_COLOR);
@@ -43,7 +43,6 @@ public class CutefulRenderUtils {
         matrices.pop();
 
         RenderSystem.depthMask(true);
-        //  RenderSystem.enableTexture();
         RenderSystem.disableBlend();
     }
 
@@ -140,11 +139,10 @@ public class CutefulRenderUtils {
 
         Matrix4f model = matrices.peek().getPositionMatrix(); //.getModel();
 
+        RenderSystem.setShader(GameRenderer::getPositionColorProgram);
         RenderSystem.enableBlend();
         RenderSystem.defaultBlendFunc();
-        // RenderSystem.disableTexture();
         RenderSystem.depthMask(false);
-        //RenderSystem.disableLighting();
         RenderSystem.disableCull();
 
         bufferBuilder.begin(VertexFormat.DrawMode.QUADS, VertexFormats.POSITION_COLOR);
@@ -154,9 +152,7 @@ public class CutefulRenderUtils {
         matrices.pop();
 
         RenderSystem.enableCull();
-        //RenderSystem.enableLighting();
         RenderSystem.depthMask(true);
-        // RenderSystem.enableTexture();
         RenderSystem.disableBlend();
     }
     public static void renderFacesOfBlockposInHashset(BufferBuilder bufferBuilder, Matrix4f model, BlockPos origin, HashSet<BlockPos> positions, float red, float green, float blue, float alpha) {
