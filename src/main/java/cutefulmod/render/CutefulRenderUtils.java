@@ -5,7 +5,7 @@ import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.render.*;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.Matrix4f;
+import org.joml.Matrix4f;
 import net.minecraft.util.math.Vec3d;
 
 import java.util.HashSet;
@@ -29,7 +29,7 @@ public class CutefulRenderUtils {
 
         RenderSystem.enableBlend();
         RenderSystem.defaultBlendFunc();
-        RenderSystem.disableTexture();
+        //  RenderSystem.disableTexture();
         RenderSystem.depthMask(false);
 
         bufferBuilder.begin(VertexFormat.DrawMode.DEBUG_LINES, VertexFormats.POSITION_COLOR);
@@ -43,7 +43,7 @@ public class CutefulRenderUtils {
         matrices.pop();
 
         RenderSystem.depthMask(true);
-        RenderSystem.enableTexture();
+        //  RenderSystem.enableTexture();
         RenderSystem.disableBlend();
     }
 
@@ -142,7 +142,7 @@ public class CutefulRenderUtils {
 
         RenderSystem.enableBlend();
         RenderSystem.defaultBlendFunc();
-        RenderSystem.disableTexture();
+        // RenderSystem.disableTexture();
         RenderSystem.depthMask(false);
         //RenderSystem.disableLighting();
         RenderSystem.disableCull();
@@ -156,7 +156,7 @@ public class CutefulRenderUtils {
         RenderSystem.enableCull();
         //RenderSystem.enableLighting();
         RenderSystem.depthMask(true);
-        RenderSystem.enableTexture();
+        // RenderSystem.enableTexture();
         RenderSystem.disableBlend();
     }
     public static void renderFacesOfBlockposInHashset(BufferBuilder bufferBuilder, Matrix4f model, BlockPos origin, HashSet<BlockPos> positions, float red, float green, float blue, float alpha) {

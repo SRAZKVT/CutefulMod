@@ -5,16 +5,17 @@
   "compatibilityLevel": "JAVA_17",
   "client": [
     "BackgroundRendererMixin",
+    "ChatScreenMixin",
+    "ClientCommonNetworkHandlerMixin",
     "ClientPlayerInteractionManagerMixin",
+    "ClientPlayNetworkHandlerMixin",
+    "CommandManagerMixin",
     "GameOptionsMixin",
     "KeyBindingMixin",
     "MinecraftClientMixin",
-    "ChatScreenMixin",
     "ParticleManagerMixin",
     "SpellParticleMixin",
-    "WorldRendererMixin",
-    "CommandManagerMixin",
-    "ClientPlayNetworkHandlerMixin"
+    "WorldRendererMixin"
   ],
   "injectors": {
     "defaultRequire": 1

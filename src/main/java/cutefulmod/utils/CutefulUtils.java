@@ -89,11 +89,11 @@ public class CutefulUtils {
                         double z = tnt.getZ();
 
                         while (rayStrength > 0.0F) {
-                            BlockPos blockPos = new BlockPos(x, y, z);
+                            BlockPos blockPos = new BlockPos((int) x, (int) y, (int) z);
 
                             // degrade ray strength in case of non air block
-                            BlockState blockState = tnt.world.getBlockState(blockPos);
-                            FluidState fluidState = tnt.world.getFluidState(blockPos);
+                            BlockState blockState = tnt.getWorld().getBlockState(blockPos);
+                            FluidState fluidState = tnt.getWorld().getFluidState(blockPos);
                             if (!blockState.isAir() || !fluidState.isEmpty()) {
                                 rayStrength -= (Math.max(blockState.getBlock().getBlastResistance(), fluidState.getBlastResistance()) + 0.3F) * 0.3F; // raystrength -= (blastresistance + 0.3) * 0.3
                             }
