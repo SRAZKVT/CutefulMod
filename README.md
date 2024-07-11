@@ -12,15 +12,6 @@ A very cute mod.
 ## Tweak Options :
 
 `bypassItemFrameEntity` - Allows player to click through an item frame, for exemple to access a chest, furnace, etc. Can be negated by sneaking.<br>
-`tntRayCount` - This feature allows you to calculate how many rays hit a specified block, and the probability of it being blown up.<br>
-
-## Commands :
-
-| Command     | Arguments       | Result                                        |
-| ----------- | --------------- | --------------------------------------------- |
-| Back        | \<none>         | Teleports you back to your last location      |
-| Stone       | \<none>         | Sets a stone block below you                  |
-| Raycount    | Block position  | Sets position for the tntRayCount feature     |
 
 ## Dependencies needed to run the mod   
 `clothconfig` - Required (CurseForge: https://www.curseforge.com/minecraft/mc-mods/cloth-config | Github: https://github.com/shedaniel/cloth-config)     

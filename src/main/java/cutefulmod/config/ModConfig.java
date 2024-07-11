@@ -11,5 +11,4 @@ public class ModConfig implements ConfigData {
     public boolean DISABLE_BLOCK_BREAKING_PARTICLES = false;
     public boolean DISABLE_POTION_EFFECT_PARTICLES = false;
     public boolean TNT_RANGE_VISUALIZER = false;
-    public boolean TNT_RAY_COUNT = false;
 }

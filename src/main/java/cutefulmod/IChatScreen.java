@@ -1,5 +1,5 @@
 package cutefulmod;
 
 public interface IChatScreen {
-    String getMessage();
+    String cutefulMod$getMessage();
 }

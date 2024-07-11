@@ -16,20 +16,10 @@ import java.util.Iterator;
 
 public class CutefulRenderController {
     private static ArrayList<TntToRender> tntToRender;
-    private static CutefulRenderController instance;
 
     private CutefulRenderController() {
         tntToRender = new ArrayList<>();
-        instance = this;
     }
-
-    public static CutefulRenderController getInstance() {
-        if (instance == null) {
-            instance = new CutefulRenderController();
-        }
-        return instance;
-    }
-
 
     public static ArrayList<TntToRender> getTntToRender() {
         return tntToRender;
@@ -42,8 +32,8 @@ public class CutefulRenderController {
     }
     private static void renderFillCloneBoundingBox(MatrixStack matrices) {
         Screen currentScreen = MinecraftClient.getInstance().currentScreen;
-        if (currentScreen instanceof ChatScreen && !((IChatScreen)currentScreen).getMessage().equals("") && CutefulMod.config.FILL_CLONE_BOUNDING_BOX) {
-            String[] args = ((IChatScreen) currentScreen).getMessage().split(" ");
+        if (currentScreen instanceof ChatScreen && !((IChatScreen) currentScreen).cutefulMod$getMessage().isEmpty() && CutefulMod.config.FILL_CLONE_BOUNDING_BOX) {
+            String[] args = ((IChatScreen) currentScreen).cutefulMod$getMessage().split(" ");
             if ((args[0].equals("/fill") || args[0].equals("/clone")) && args.length >= 7) {
                 BlockPos pos1;
                 BlockPos pos2;

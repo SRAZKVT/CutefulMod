@@ -4,6 +4,6 @@ import net.minecraft.client.option.KeyBinding;
 
 public interface IGameOptions {
 
-    KeyBinding getCutefulModMenu();
+    KeyBinding cutefulMod$getCutefulModMenu();
 
 }

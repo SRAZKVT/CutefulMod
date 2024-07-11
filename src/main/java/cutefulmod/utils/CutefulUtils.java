@@ -4,10 +4,8 @@ import net.minecraft.block.BlockState;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.entity.TntEntity;
 import net.minecraft.fluid.FluidState;
-import net.minecraft.text.Text;
 import net.minecraft.util.math.BlockPos;
 
-import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -58,15 +56,10 @@ public class CutefulUtils {
         pos = new BlockPos(posX, posY, posZ);
         return pos;
     }
-    public static Set<BlockPos> simulateExplosion(float raySizeMultiplier, TntEntity tnt){
-        return simulateExplosion(raySizeMultiplier, tnt,false);
-    }
 
-    public static Set<BlockPos> simulateExplosion(float raySizeMultiplier, TntEntity tnt,boolean countRaysHittingBlockPos) {
+    public static Set<BlockPos> simulateExplosion(float raySizeMultiplier, TntEntity tnt) {
         Set<BlockPos> toExplode = new HashSet<>();
         double explosionHeight = tnt.getBodyY(0.0625);
-        ArrayList<Double> probabilityOfRayBreakingBlock = new ArrayList<>();
-        int raysHittingBlockPos = 0;
         for (int i = 0; i < 16; ++i) {
             for (int j = 0; j < 16; ++j) {
                 for (int k = 0; k < 16; ++k) {
@@ -101,24 +94,6 @@ public class CutefulUtils {
                             // if ray goes through block then it is added to the list of blocks to explode
                             if (rayStrength > 0.0F) {
                                 toExplode.add(blockPos);
-                                if (countRaysHittingBlockPos && blockPos.equals(CommandUtils.getBlockToCheckRaysOn())) {
-                                    raysHittingBlockPos++;
-
-                                    // unwrap ray strength to get min nextFloat value that would break block
-                                    double rayStrengthCopy = rayStrength;
-                                    rayStrengthCopy = 5.2D - rayStrengthCopy;
-                                    rayStrengthCopy /= 4.0D;
-                                    rayStrengthCopy -= 0.7D;
-                                    rayStrengthCopy /= 0.6D;
-                                    // here raystrength needed to blow up block is below minimal of ray (2.8) and so block will be blown up 100% of the time
-                                    if (rayStrengthCopy <= 0) {
-                                        probabilityOfRayBreakingBlock.add(1.0D);
-                                    } else {
-                                        probabilityOfRayBreakingBlock.add(rayStrengthCopy);
-                                    }
-                                    // prevents code from counting a single ray as multiple succesful ones
-                                    rayStrength = 0.0F;
-                                }
                             }
 
                             // reduces ray strength (without this ray going through air only would keep looping)
@@ -133,22 +108,6 @@ public class CutefulUtils {
                 }
             }
         }
-        if (countRaysHittingBlockPos) {
-            assert MinecraftClient.getInstance().player != null;
-            MinecraftClient.getInstance().player.sendMessage(Text.literal("The block pos at " + cutePositionFromPos(CommandUtils.getBlockToCheckRaysOn()) + " has been struck by " + raysHittingBlockPos + " rays."), false);
-            double probabilityOfBlockBeingBlownUp = 1D;
-            if (!probabilityOfRayBreakingBlock.contains(1D)) {
-                for (double probabilityOfRay : probabilityOfRayBreakingBlock) {
-                    probabilityOfRay = 1D - probabilityOfRay;
-                    probabilityOfBlockBeingBlownUp *= probabilityOfRay;
-                }
-                probabilityOfBlockBeingBlownUp = 1D - probabilityOfBlockBeingBlownUp;
-            }
-            MinecraftClient.getInstance().player.sendMessage(Text.literal("The probability of the block being blown up is " + probabilityOfBlockBeingBlownUp + " or " + probabilityOfBlockBeingBlownUp * 100 + "%."),false);
-        }
         return toExplode;
-    }
-    public static String cutePositionFromPos(BlockPos pos) {
-        return "x : " + pos.getX() + ", y : " + pos.getY() + ", z : " + pos.getZ();
     }
 }

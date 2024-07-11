@@ -33,7 +33,7 @@ public abstract class MinecraftClientMixin {
             )
     )
     private void handleCutefulModMenuKeybind(CallbackInfo ci) {
-        while (((IGameOptions) options).getCutefulModMenu().wasPressed()) {
+        while (((IGameOptions) options).cutefulMod$getCutefulModMenu().wasPressed()) {
             setScreen(AutoConfig.getConfigScreen(ModConfig.class, this.currentScreen).get());
         }
     }
